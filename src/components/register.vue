@@ -52,13 +52,11 @@ export default {
             this.email = ''
             this.password = ''
             this.confirmPassword = ''
-            
             this.$notify({
               group: 'auth',
               text: res.data.message,
               type: 'warn'
             })
-
           } else {
             this.$notify({
               group: 'auth',
@@ -66,7 +64,6 @@ export default {
               type: 'success'
             })
             this.$router.push('/login')
-
           }
         })
         .catch((err) => {

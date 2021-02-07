@@ -39,6 +39,7 @@
 import DataService from '../web_service/services'
 import regex from '../utils/regex'
 import toInteger from '../utils/toInteger'
+import orderUpdate from '../utils/orderUpdate'
 
 export default {
   name: 'details',
@@ -75,7 +76,14 @@ export default {
         subTotal: total
       }
 
+      let orderData = JSON.parse(localStorage.getItem('order'))
 
+      if (orderData) {
+        orderUpdate(order, orderData)
+
+        const parse = JSON.stringify(orderData)
+        localStorage.setItem('order', parse)
+      }
       this.$store.commit('addOrder', order)
       this.$router.push('/cart')
     },
@@ -94,12 +102,10 @@ export default {
       let test = JSON.parse(localStorage.getItem('order'))
 
       if (test) {
-        for (let i = 0; i < test.length; i++) {
-          if (order.product === test[i].product) {
-            let totalQuantity = order.quantity + test[i].quantity 
-            console.log(totalQuantity)
-          }
-        }
+        orderUpdate(order, test)
+      
+        const parse = JSON.stringify(test)
+        localStorage.setItem('order', parse)
       }
 
       try {

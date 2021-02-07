@@ -65,7 +65,6 @@ export default {
             text: 'success add item',
             type: 'success'
           })
-          
         })
         .catch((err) => {
           alert('something wrong' + err)

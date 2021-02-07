@@ -14,19 +14,19 @@
       <b-row>
         <b-col md="6">
           <h4>BILLING DETAILS</h4>
-          <div class=" mt-4"> 
+          <div class=" mt-4">
             <b-form inline>
               <label class="sr-only" for="first-name">First Name</label>
              <b-form-input
               id="first-name"
               class="mb-2 mr-sm-2 mb-sm-0"
-              placeholder="Jane Doe"
+              placeholder="First Name"
               ></b-form-input>
               <label class="sr-only" for="last-name">Last Name</label>
              <b-form-input
               id="last-name"
               class="mb-2 mr-sm-2 mb-sm-0"
-              placeholder="Jane Doe"
+              placeholder="Last Name"
               ></b-form-input>
             </b-form>
           </div>
