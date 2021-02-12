@@ -35,13 +35,19 @@
               placeholder="Address"
               max-rows="3"
             ></b-form-textarea>
-            <b-form-select class="mt-3" v-model="selected">
+            <b-form-select class="mt-3" v-model="prov_id">
             <b-form-select-option v-for="(prov, idx) in provinsi" :key="idx" :value="prov.id">{{ prov.nama }}</b-form-select-option>
         </b-form-select>
-        <b-form-select class="mt-3" v-model="select">
+
+        <b-form-select class="mt-3" v-model="kota_id">
             <b-form-select-option v-for="(kot, idx) in kota" :key="idx" :value="kot.id">{{ kot.nama }}</b-form-select-option>
         </b-form-select>
-        <!-- <p> {{kotaRegion}}</p> -->
+
+        <b-form-select class="mt-3" v-model="kec_id">
+            <b-form-select-option v-for="(kec, idx) in kecamatan" :key="idx" :value="kec.id">{{ kec.nama }}</b-form-select-option>
+        </b-form-select>
+
+        <!-- <p> {{kecamatan}}</p> -->
           </div>
         </b-col>
         <b-col md="6">
@@ -88,9 +94,11 @@ export default {
     return {
       orders: null,
       provinsi: null,
-      selected: null,
-      select: null,
-      kota: null
+      kota: null,
+      kecamatan: null,
+      prov_id: null,
+      kota_id: null,
+      kec_id: null
     }
   },
   created () {
@@ -128,8 +136,14 @@ export default {
  asyncComputed: {
   kotaRegion: {
     get () {
-      return axios.get('https://dev.farizdotid.com/api/daerahindonesia/kota?id_provinsi=' + this.selected)
+      return axios.get('https://dev.farizdotid.com/api/daerahindonesia/kota?id_provinsi=' + this.prov_id)
       .then((res) => this.kota = res.data.kota_kabupaten)
+    }
+  },
+  kecamatanRegion: {
+    get () {
+      return axios.get('https://dev.farizdotid.com/api/daerahindonesia/kecamatan?id_kota=' + this.kota_id)
+      .then((res) => this.kecamatan = res.data.kecamatan)
     }
   }
  }
