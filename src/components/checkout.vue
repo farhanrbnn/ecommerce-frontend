@@ -29,12 +29,24 @@
               placeholder="Last Name"
               ></b-form-input>
             </b-form>
+            <b-form-textarea
+              class="mt-3"
+              id="textarea"
+              placeholder="Address"
+              max-rows="3"
+            ></b-form-textarea>
+            <b-form-select class="mt-3" v-model="selected">
+            <b-form-select-option v-for="(prov, idx) in provinsi" :key="idx" :value="prov.id">{{ prov.nama }}</b-form-select-option>
+        </b-form-select>
+        <b-form-select class="mt-3" v-model="select">
+            <b-form-select-option v-for="(kot, idx) in kota" :key="idx" :value="kot.id">{{ kot.nama }}</b-form-select-option>
+        </b-form-select>
+        <!-- <p> {{kotaRegion}}</p> -->
           </div>
         </b-col>
         <b-col md="6">
           <h4 class="mb-4">ORDER SUMMARY</h4>
           <div id="order-summary">
-          <h5>Your Order</h5>
           <div id="order-list">
             <b-row>
               <b-col sm="6">
@@ -65,6 +77,7 @@
 </template>
 
 <script>
+import axios from 'axios'
 import regex from '../utils/regex'
 import toInteger from '../utils/toInteger'
 import grandTotal from '../utils/grandTotal'
@@ -73,10 +86,22 @@ export default {
   name: 'checkout',
   data () {
     return {
-      orders: null
+      orders: null,
+      provinsi: null,
+      selected: null,
+      select: null,
+      kota: null
     }
   },
   created () {
+    axios.get('https://dev.farizdotid.com/api/daerahindonesia/provinsi')
+      .then((res) => {
+        this.provinsi = res.data.provinsi
+      })
+      .catch((err) => {
+        console.log(err)
+      })
+
     let localData = JSON.parse(localStorage.getItem('order'))
 
     for (let i = 0; i < localData.length; i++) {
@@ -99,7 +124,15 @@ export default {
       let sumTotal = regex(grandTotal(arrSubtotal, 'sum'))
       return sumTotal
     }
+ }, 
+ asyncComputed: {
+  kotaRegion: {
+    get () {
+      return axios.get('https://dev.farizdotid.com/api/daerahindonesia/kota?id_provinsi=' + this.selected)
+      .then((res) => this.kota = res.data.kota_kabupaten)
+    }
   }
+ }
 }
 
 </script>

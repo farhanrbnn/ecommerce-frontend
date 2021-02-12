@@ -103,7 +103,6 @@ export default {
 
       if (test) {
         orderUpdate(order, test)
-      
         const parse = JSON.stringify(test)
         localStorage.setItem('order', parse)
       }
