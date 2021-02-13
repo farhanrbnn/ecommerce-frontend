@@ -15,38 +15,67 @@
         <b-col md="6">
           <h4>BILLING DETAILS</h4>
           <div class=" mt-4">
-            <b-form inline>
-              <label class="sr-only" for="first-name">First Name</label>
+            <b-form>    
+             <p class="d-flex align-items-left mb-2">Nama Lengkap</p>
              <b-form-input
               id="first-name"
+              label="First Name"
               class="mb-2 mr-sm-2 mb-sm-0"
-              placeholder="First Name"
-              ></b-form-input>
-              <label class="sr-only" for="last-name">Last Name</label>
-             <b-form-input
-              id="last-name"
-              class="mb-2 mr-sm-2 mb-sm-0"
-              placeholder="Last Name"
+              placeholder="Full Name"
               ></b-form-input>
             </b-form>
-            <b-form-textarea
-              class="mt-3"
-              id="textarea"
-              placeholder="Address"
-              max-rows="3"
-            ></b-form-textarea>
-            <b-form-select class="mt-3" v-model="prov_id">
-            <b-form-select-option v-for="(prov, idx) in provinsi" :key="idx" :value="prov.id">{{ prov.nama }}</b-form-select-option>
-        </b-form-select>
 
-        <b-form-select class="mt-3" v-model="kota_id">
-            <b-form-select-option v-for="(kot, idx) in kota" :key="idx" :value="kot.id">{{ kot.nama }}</b-form-select-option>
-        </b-form-select>
+            <div class="mt-4">
+              <p class="d-flex align-items-left mb-2">Address</p>
+              <b-form-textarea
+                id="textarea"
+                placeholder="Address"
+                max-rows="3"
+              ></b-form-textarea>
+            </div>
 
-        <b-form-select class="mt-3" v-model="kec_id">
-            <b-form-select-option v-for="(kec, idx) in kecamatan" :key="idx" :value="kec.id">{{ kec.nama }}</b-form-select-option>
-        </b-form-select>
+            <div class="mt-4">
+              <p class="d-flex align-items-left mb-2">Provinsi</p>
+              <b-form-select v-model="prov_id">
+                <b-form-select-option v-for="(prov, idx) in provinsi" :key="idx" :value="prov.id">{{ prov.nama }}</b-form-select-option>
+               </b-form-select>
+             </div>
 
+            <div class="mt-4">
+              <p class="d-flex align-items-left mb-2">Kota</p>
+              <b-form-select v-model="kota_id">
+                <b-form-select-option v-for="(kot, idx) in kota" :key="idx" :value="kot.id">{{ kot.nama }}</b-form-select-option>
+              </b-form-select>
+            </div>
+
+            <div class="mt-4">
+              <p class="d-flex align-items-left mb-2">Kecamatan</p>
+              <b-form-select v-model="kec_id">
+                <b-form-select-option v-for="(kec, idx) in kecamatan" :key="idx" :value="kec.id">{{ kec.nama }}</b-form-select-option>
+              </b-form-select>
+            </div>
+
+            <div class="mt-4">
+              <p class="d-flex align-items-left mb-2">Kode Pos</p>
+             <b-form-input
+              id="kode-pos"
+              class="mb-2 mr-sm-2 mb-sm-0"
+              placeholder="Kode Pos"
+              ></b-form-input>
+            </div>
+
+             <div class="mt-4">
+              <p class="d-flex align-items-left mb-2">Email</p>
+             <b-form-input
+              id="email"
+              class="mb-2 mr-sm-2 mb-sm-0"
+              placeholder="Email"
+              type="email"
+              autocomplete="off"
+              ></b-form-input>
+            </div>
+
+            <b-button class="mt-5" variant="primary">Submit</b-button>
         <!-- <p> {{kecamatan}}</p> -->
           </div>
         </b-col>

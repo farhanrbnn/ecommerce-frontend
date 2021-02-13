@@ -1,16 +1,28 @@
 <template>
   <div class="login">
-    <div id="form">
-      <h2>Log In</h2>
+    <b-navbar class="mb-5" toggleable="lg" type="dark" variant="dark">
+      <b-navbar-brand href="/" id="brand">GamersCrib</b-navbar-brand>
+      <b-navbar-toggle target="nav-collapse"></b-navbar-toggle>
+      <b-collapse id="nav-collapse" is-nav>
+      <b-navbar-nav class="ml-auto">
+        <b-nav-item><b-img v-bind:src="require('@/assets/cart-logo.png')" fluid alt="Fluid image"></b-img></b-nav-item>
+        <b-nav-item><router-link to="/login"><p id="router">Login</p></router-link></b-nav-item>
+      </b-navbar-nav>
+      </b-collapse>
+     </b-navbar>
+    <b-container class="d-flex justify-content-center">
+      <div id="form">
+      <h2 class="mb-3">Log In</h2>
       <b-form-group id="input-group-1" label="Email" label-for="input-1">
-        <b-form-input id="input-1" placeholder="Enter Your Email" v-model="email"></b-form-input>
+        <b-form-input autocomplete="off" id="input-1" placeholder="Enter Your Email" v-model="email"></b-form-input>
       </b-form-group>
       <b-form-group id="input-group-2" label="Password" label-for="input-2">
-        <b-form-input id="input-2" placeholder="Enter Your Password" v-model="password"></b-form-input>
+        <b-form-input autocomplete="off" id="input-2" placeholder="Enter Your Password" v-model="password"></b-form-input>
       </b-form-group>
       <p>doesnt have an account ? register <span><router-link to="/register">here</router-link></span></p>
        <b-button class="mt-3" variant="primary" @click="postData">Submit</b-button>
     </div>
+    </b-container>
   </div>
 </template>
 
@@ -61,10 +73,21 @@ export default {
 </script>
 
 <style scoped>
+@import url('https://fonts.googleapis.com/css2?family=Krona+One&display=swap');
 
 #form {
-  margin: 0 auto;
+ margin-top: 100px;
   width: 500px;
+}
+
+#brand {
+  font-family: 'Krona One', sans-serif;
+
+}
+#router {
+  font-size: 20px;
+  margin-bottom: 0;
+  color: white;
 }
 
 </style>
