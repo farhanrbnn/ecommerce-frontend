@@ -17,14 +17,13 @@
       <b-col class="d-flex align-items-left" md="6">
         <b-container>
           <div id="form">
-            <h2 class="mb-3">Log In</h2>
+            <h2 class="mb-3">Admin Log In</h2>
             <b-form-group id="input-group-1" label="Email" label-for="input-1">
               <b-form-input autocomplete="off" id="input-1" placeholder="Enter Your Email" v-model="email"></b-form-input>
             </b-form-group>      
-            <b-form-group id="input-group-2" label="Password" label-for="input-2">
+            <b-form-group id="in put-group-2" label="Password" label-for="input-2">
                <b-form-input autocomplete="off" id="input-2" placeholder="Enter Your Password" v-model="password"></b-form-input>
             </b-form-group>
-           <p>doesnt have an account ? register <span><router-link to="/register">here</router-link></span></p>
            <b-button class="mt-3" variant="primary" @click="postData">Submit</b-button>
           </div>
         </b-container>

@@ -26,6 +26,13 @@
              <label for="amount">Jumlah</label>
              <b-form-spinbutton id="amount" min="1" v-model="value" max="100"></b-form-spinbutton>
             </div>
+
+            <div class="d-flex align-items-left mt-5">
+              <h4 class="mr-5">description</h4>
+              <p id="description">Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod
+              tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam,
+              quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo</p>
+            </div>
             <b-button class="mt-3" @click="addToCart" variant="primary" >Add to Cart</b-button>
             <b-button class="mt-3" @click="buyNow"  variant="primary">Buy Now</b-button>
           </div>
@@ -130,6 +137,10 @@ export default {
 
 <style>
 @import url('https://fonts.googleapis.com/css2?family=Krona+One&display=swap');
+
+#description {
+  text-align: justify;
+}
 
 #router {
   font-size: 20px;

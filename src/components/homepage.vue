@@ -11,7 +11,7 @@
       </b-collapse>
      </b-navbar>
      <b-container class="px-0" fluid>
-      <b-img v-bind:src="require('@/assets/home-pic.jpg')" fluid alt="Fluid image"></b-img>
+      <b-img id="home-img" v-bind:src="require('@/assets/home-pic.jpg')" fluid alt="Fluid image"></b-img>
       <h1 class="centered">{{ pic }}</h1>
       <b-button id="button_center" variant="light"><router-link to="/shop"><p id="router-shop">Shop Now</p></router-link></b-button>
       <b-container>
@@ -91,6 +91,9 @@ h3 {
   transform: translate(-50%, -50%);
 }
 
+#home-img {
+  opacity: 0.8;
+}
 #brand {
   font-family: 'Krona One', sans-serif;
 
