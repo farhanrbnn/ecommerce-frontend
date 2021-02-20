@@ -40,7 +40,7 @@
             <label for="input-nama">Nama Produk:</label>
           </b-col>
           <b-col sm="10">
-            <b-form-input id="input-nama" placeholder="Nama Produk"></b-form-input>
+            <b-form-input id="input-nama" placeholder="Nama Produk" v-model="name"></b-form-input>
           </b-col>
        </b-row>
        	<b-row class="my-3">
@@ -48,7 +48,7 @@
             <label for="input-harga">Harga:</label>
           </b-col>
           <b-col sm="10">
-            <b-form-input id="input-harga" placeholder="Harga"></b-form-input>
+            <b-form-input id="input-harga" placeholder="Harga" v-model="price"></b-form-input>
           </b-col>
        </b-row>
        	<b-row class="my-3">
@@ -56,15 +56,84 @@
             <label for="input-kategori">Kategori:</label>
           </b-col>
           <b-col sm="10">
-            <b-form-input id="input-kategori" placeholder="kategori"></b-form-input>
+            <b-form-input id="input-kategori" placeholder="kategori" v-model="category"></b-form-input>
           </b-col>
        </b-row>
+       <b-row class="my-3">
+     			<b-col sm="2" class="d-flex align-items-start">
+            <label for="input-quantity">Quantity:</label>
+          </b-col>
+          <b-col sm="10">
+            <b-form-input id="input-quantity" placeholder="Quantity" v-model="quantity"></b-form-input>
+          </b-col>
+       </b-row>
+        <b-row class="my-3">
+     			<b-col sm="2" class="d-flex align-items-start">
+            <label for="input-quantity">Foto Produk:</label>
+          </b-col>
+          <b-col sm="10" class="d-flex align-items-start">
+          	<input type="file" accept=".jpg, .jpeg, .png" @change="fileChange">
+          </b-col>
+       </b-row>
+        <b-button class="mt-5" variant="primary" @click="postData">Submit</b-button>
       </b-card>
      </b-container>
 	</div>
 </template>
 
 <script>
+import DataService from '../urlApp/user'
+
+export default {
+	name:'adminPage',
+	data () {
+		return {
+			url: null,
+			name: '',
+			category: '',
+			price: '',
+			quantity: ''
+		}
+	},
+	methods: {
+		fileChange(e) {
+			const file = e.target.files[0]
+      let reader = new FileReader()
+      reader.readAsDataURL(file)
+
+      reader.onload = () => {
+        this.url = reader.result
+      }
+		},
+		postData() {
+			let data = {
+				name: this.name,
+				category: this.category,
+				price: this.price,
+				quantity: this.quantity,
+				picture: this.url
+			}
+
+			// DataService.create('/post', data)
+			DataService.post('/post', data)
+			  .then((res) => {
+			  	this.name = ''
+			  	this.category = ''
+			  	this.price = ''
+			  	this.quantity = ''
+
+			  	this.$notify({
+			  		group: 'cart',
+			  		text: 'success add item',
+			  		type: 'success'
+			  	})
+			  })
+			  .catch((err) => {
+			  	alert('something went wrong' + err)
+			  })
+		}
+	}
+}
 	
 </script>
 

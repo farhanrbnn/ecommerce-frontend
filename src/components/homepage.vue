@@ -38,7 +38,7 @@
 </template>
 
 <script>
-import DataService from '../web_service/services'
+import DataService from '../urlApp/user'
 import regex from '../utils/regex'
 
 export default {
@@ -52,7 +52,8 @@ export default {
     }
   },
   created () {
-    DataService.getAllData()
+    // DataService.getAllData()
+    DataService.get('/')
       .then((res) => {
         let apiData = res.data.data
 

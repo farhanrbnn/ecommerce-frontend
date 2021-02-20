@@ -43,7 +43,7 @@
 </template>
 
 <script>
-import DataService from '../web_service/services'
+import DataService from '../urlApp/user'
 import regex from '../utils/regex'
 import toInteger from '../utils/toInteger'
 import orderUpdate from '../utils/orderUpdate'
@@ -59,7 +59,8 @@ export default {
     }
   },
   created () {
-    DataService.getFindById(this.url)
+    // DataService.getFindById(this.url)
+    DataService.get(this.url)
       .then((res) => {
         let apiData = res.data.data
         apiData.price = regex(apiData.price)

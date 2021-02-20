@@ -20,7 +20,7 @@
 </template>
 
 <script>
-import DataService from '../web_service/services'
+import DataService from '../urlApp/user'
 
 export default {
   name: 'inputGoods',
@@ -52,9 +52,12 @@ export default {
         picture: this.url
       }
 
-      DataService.create('/post', data)
+      userURL.post('/post', data)
+
+
+      // DataService.create('/post', data)
+      DataService.get('/post', data)
         .then((res) => {
-          // make form empty
           this.name = ''
           this.category = ''
           this.price = ''

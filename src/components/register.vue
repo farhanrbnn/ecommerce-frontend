@@ -23,7 +23,7 @@
 </template>
 
 <script>
-import DataService from '../web_service/services'
+import DataService from '../urlApp/user'
 
 export default {
   name: 'register',
@@ -46,7 +46,8 @@ export default {
         confirmPassword: this.confirmPassword
       }
 
-      DataService.create('/post/register', data)
+      // DataService.create('/post/register', data)
+      DataService.post('/post/register', data)
         .then((res) => {
           if (res.data.status === '400') {
             this.email = ''

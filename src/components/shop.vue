@@ -39,7 +39,7 @@
 </template>
 
 <script>
-import DataService from '../web_service/services'
+import DataService from '../urlApp/user'
 import regex from '../utils/regex'
 
 export default {
@@ -52,7 +52,7 @@ export default {
     }
   },
   created () {
-    DataService.getAllData()
+    DataService.get('/')
       .then((res) => {
         let apiData = res.data.data
         let categoryArr = []
@@ -79,7 +79,7 @@ export default {
       }
 
       if (this.selected === 'All') {
-        DataService.getAllData()
+        DataService.get('/')
           .then((res) => {
             let apiData = res.data.data
 
@@ -95,7 +95,7 @@ export default {
           })
       }
 
-      DataService.create('/post/items', postCat)
+      DataService.post('/post/items', postCat)
         .then((res) => {
           let apiData = res.data.data
 

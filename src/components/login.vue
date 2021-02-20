@@ -34,7 +34,7 @@
 </template>
 
 <script>
-import DataService from '../web_service/services'
+import DataService from '../urlApp/user'
 
 export default {
   name: 'login',
@@ -51,7 +51,8 @@ export default {
         password: this.password
       }
 
-      DataService.create('/user/auth', data)
+      // DataService.create('/user/auth', data)
+      DataService.post('/user/auth', data)
         .then((res) => {
           this.$cookies.set('jwt', res.data.token, '1h')
 

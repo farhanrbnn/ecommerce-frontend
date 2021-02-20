@@ -33,7 +33,7 @@
 </template>
 
 <script>
-import DataService from '../web_service/services'
+import DataService from '../urlApp/user'
 
 export default {
   name: 'login',
