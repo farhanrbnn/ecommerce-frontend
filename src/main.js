@@ -4,7 +4,7 @@ import Vue from 'vue'
 import App from './App'
 import router from './router'
 import store from './store'
-import BootstrapVue from 'bootstrap-vue'
+import {BootstrapVue, BootstrapVueIcons} from 'bootstrap-vue'
 import Notifications from 'vue-notification'
 import AsyncComputed from 'vue-async-computed'
 import 'bootstrap/dist/css/bootstrap.css'
@@ -16,6 +16,7 @@ Vue.use(BootstrapVue)
 Vue.use(VueCookie)
 Vue.use(Notifications)
 Vue.use(AsyncComputed)
+Vue.use(BootstrapVueIcons)
 
 /* eslint-disable no-new */
 new Vue({
