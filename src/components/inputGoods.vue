@@ -52,11 +52,11 @@ export default {
         picture: this.url
       }
 
-      userURL.post('/post', data)
+      // userURL.post('/post', data)
 
 
       // DataService.create('/post', data)
-      DataService.get('/post', data)
+      DataService.get('/product/post', data)
         .then((res) => {
           this.name = ''
           this.category = ''

@@ -38,6 +38,20 @@
           </div>
         </b-col>
       </b-row>
+      <b-row style="margin-top: 100px;">
+        <b-col cols=12>
+          <h3>Related Products</h3>
+        </b-col>
+      </b-row>
+      <b-row  class="d-flex justify-content-lg-center">
+        <b-col v-for="(arr, index) in itemByCat" :key="index" v-if="itemByCat.length <= 4" cols="3">
+          <b-card :img-src="arr.picture" :title="arr.name">
+            <b-card-text>
+              Rp. {{arr.price}}
+            </b-card-text>
+          </b-card>
+        </b-col>
+      </b-row>
      </b-container>
   </div>
 </template>
@@ -55,22 +69,39 @@ export default {
     return {
       datas: null,
       url: '/' + this.userId,
-      value: 1
+      value: 1,
+      category: null,
+      itemByCat: null
     }
   },
-  created () {
+  async created () {
     // DataService.getFindById(this.url)
-    DataService.get(this.url)
+   await DataService.get(this.url)
       .then((res) => {
         let apiData = res.data.data
         apiData.price = regex(apiData.price)
 
         this.datas = apiData
+        this.category = apiData.category
+      })
+      .catch((err) => {
+        alert('error when fetching API' + err)
+      })
+
+      const postCat = {
+        category: this.category
+      }
+
+      await DataService.post('/post/items', postCat)
+      .then((res) => {
+        this.itemByCat = res.data.data
+        console.log(this.itemByCat)
       })
       .catch((err) => {
         alert('error when fetching API' + err)
       })
   },
+
   methods: {
     buyNow () {
       let priceInt = toInteger(this.datas.price)

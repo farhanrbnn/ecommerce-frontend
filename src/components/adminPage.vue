@@ -8,15 +8,17 @@
     	<div class="mt-4">
     	  <div id="menu" class="d-flex align-items-start py-3">
     	  	<div class="pl-3">
-    	  		<a href="" style="color: white;">
-    	  			<h4>Tambah Produk</h4>
-    	  		</a>
+            <router-link to="/admin/home">
+              <h4 style="color:white;">Tambah Produk</h4>              
+            </router-link>
     	  	</div>
         </div>
         <div id="menu" class="d-flex align-items-start py-3">
     	  	<div class="pl-3">
     	  		<a href="" style="color: white;">
-    	  			<h4>Produk Toko</h4>
+              <router-link to="/admin/produk">
+                <h4 style="color:white;">Produk Toko</h4>
+              </router-link>
     	  		</a>
     	  	</div>
         </div>
@@ -82,7 +84,7 @@
 </template>
 
 <script>
-import DataService from '../urlApp/user'
+import DataService from '../urlApp/admin'
 
 export default {
 	name:'adminPage',
@@ -115,7 +117,7 @@ export default {
 			}
 
 			// DataService.create('/post', data)
-			DataService.post('/post', data)
+			DataService.post('/product/post', data)
 			  .then((res) => {
 			  	this.name = ''
 			  	this.category = ''
@@ -139,10 +141,6 @@ export default {
 
 <style scoped>
 @import url('https://fonts.googleapis.com/css2?family=Krona+One&display=swap');
-
-#container {
-	margin-top: 10s0px;
-}
 
 #menu:hover {
 	background-color: #797979;
