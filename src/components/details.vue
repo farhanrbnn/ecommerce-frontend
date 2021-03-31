@@ -71,11 +71,14 @@ export default {
       url: '/' + this.userId,
       value: 1,
       category: null,
-      itemByCat: null
+      itemByCat: null,
+      jwt: null
     }
   },
   async created () {
     // DataService.getFindById(this.url)
+
+    this.jwt = this.$cookies.get('jwt')
    await DataService.get(this.url)
       .then((res) => {
         let apiData = res.data.data
@@ -94,8 +97,15 @@ export default {
 
       await DataService.post('/post/items', postCat)
       .then((res) => {
-        this.itemByCat = res.data.data
-        console.log(this.itemByCat)
+        const apiData = res.data.data
+
+        for (let i = 0; i < apiData.length; i++) {
+          const priceRegex = regex(apiData[i].price)
+          apiData[i].price = priceRegex
+
+        }
+
+        this.itemByCat = apiData
       })
       .catch((err) => {
         alert('error when fetching API' + err)
@@ -117,14 +127,19 @@ export default {
 
       let orderData = JSON.parse(localStorage.getItem('order'))
 
-      if (orderData) {
+      if (this.jwt) {
+        if (orderData) {
         orderUpdate(order, orderData)
 
         const parse = JSON.stringify(orderData)
         localStorage.setItem('order', parse)
       }
-      this.$store.commit('addOrder', order)
-      this.$router.push('/cart')
+        this.$store.commit('addOrder', order)
+        this.$router.push('/cart')
+
+      } else {
+        this.$router.push('/login')
+      }
     },
     addToCart () {
       let priceInt = toInteger(this.datas.price)
@@ -140,26 +155,29 @@ export default {
 
       let test = JSON.parse(localStorage.getItem('order'))
 
-      if (test) {
+      if (test && this.jwt) {
         orderUpdate(order, test)
         const parse = JSON.stringify(test)
         localStorage.setItem('order', parse)
-      }
 
-      try {
-        this.$store.commit('addOrder', order)
+        try {
+          this.$store.commit('addOrder', order)
 
-        this.$notify({
-          group: 'cart',
-          text: 'Success add item to cart',
-          type: 'success'
-        })
-      } catch (err) {
-        this.$notify({
-          group: 'cart',
-          text: 'Failed add item to cart',
-          type: 'warn'
-        })
+          this.$notify({
+            group: 'cart',
+            text: 'Success add item to cart',
+            type: 'success'
+          })
+        } catch (err) {
+          this.$notify({
+            group: 'cart',
+            text: 'Failed add item to cart',
+            type: 'warn'
+          })
+        }
+
+      } else {
+        this.$router.push('/login')
       }
     }
   }

@@ -40,8 +40,12 @@ export default {
   data () {
     return {
       email: '',
-      password: ''
+      password: '',
+      jwt: null
     }
+  },
+  created () {
+    this.jwt = this.$cookies.get('jwt')
   },
   methods: {
     postData () {

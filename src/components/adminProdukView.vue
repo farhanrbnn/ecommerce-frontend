@@ -46,7 +46,7 @@ export default {
   data () {
     return {
       items: null,
-      fields:['name', 'category', 'price', 'quantity']
+      fields:['name', 'category', 'price', 'quantity', 'Actions']
     }
   },
   created () {
