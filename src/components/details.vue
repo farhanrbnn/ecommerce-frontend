@@ -1,16 +1,6 @@
 <template>
   <div id="details">
-    <b-navbar toggleable="lg" type="dark" variant="dark">
-      <b-navbar-brand href="/" id="brand">GamersCrib</b-navbar-brand>
-      <b-navbar-toggle target="nav-collapse"></b-navbar-toggle>
-      <b-collapse id="nav-collapse" is-nav>
-      <b-navbar-nav class="ml-auto">
-        <b-nav-item><router-link to="/cart"><b-img v-bind:src="require('@/assets/cart-logo.png')" fluid alt="Fluid image"></b-img></router-link></b-nav-item>
-        <b-nav-item><router-link to="/login"><p id="router">Login</p></router-link></b-nav-item>
-      </b-navbar-nav>
-      </b-collapse>
-     </b-navbar>
-     <b-container id="content">
+     <b-container id="content" class="mt-5">
       <b-row v-if="datas" class="justify-content-md-center">
         <b-col cols="4">
           <img id="product-image" :src="datas.picture">
@@ -72,7 +62,8 @@ export default {
       value: 1,
       category: null,
       itemByCat: null,
-      jwt: null
+      jwt: null,
+      hide: true
     }
   },
   async created () {
@@ -179,6 +170,10 @@ export default {
       } else {
         this.$router.push('/login')
       }
+    },
+    authLogout () {
+      this.$cookies.remove('jwt')
+      this.$router.push('/login')
     }
   }
 }

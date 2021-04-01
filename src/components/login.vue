@@ -1,15 +1,5 @@
 <template>
   <div class="login">
-    <b-navbar class="mb-5" toggleable="lg" type="dark" variant="dark">
-      <b-navbar-brand href="/" id="brand">GamersCrib</b-navbar-brand>
-      <b-navbar-toggle target="nav-collapse"></b-navbar-toggle>
-      <b-collapse id="nav-collapse" is-nav>
-      <b-navbar-nav class="ml-auto">
-        <b-nav-item><b-img v-bind:src="require('@/assets/cart-logo.png')" fluid alt="Fluid image"></b-img></b-nav-item>
-        <b-nav-item><router-link to="/login"><p id="router">Login</p></router-link></b-nav-item>
-      </b-navbar-nav>
-      </b-collapse>
-     </b-navbar>
      <b-row>
       <b-col class="d-flex align-items-center justify-content-center" md="6">
         <h1 id="brand">GamersCrib</h1>
