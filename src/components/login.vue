@@ -1,15 +1,6 @@
 <template>
   <div class="login">
-    <b-navbar class="mb-5" toggleable="lg" type="dark" variant="dark">
-      <b-navbar-brand href="/" id="brand">GamersCrib</b-navbar-brand>
-      <b-navbar-toggle target="nav-collapse"></b-navbar-toggle>
-      <b-collapse id="nav-collapse" is-nav>
-      <b-navbar-nav class="ml-auto">
-        <b-nav-item><b-img v-bind:src="require('@/assets/cart-logo.png')" fluid alt="Fluid image"></b-img></b-nav-item>
-        <b-nav-item><router-link to="/login"><p id="router">Login</p></router-link></b-nav-item>
-      </b-navbar-nav>
-      </b-collapse>
-     </b-navbar>
+    <headerWeb />
      <b-row>
       <b-col class="d-flex align-items-center justify-content-center" md="6">
         <h1 id="brand">GamersCrib</h1>
@@ -22,7 +13,7 @@
               <b-form-input autocomplete="off" id="input-1" placeholder="Enter Your Email" v-model="email"></b-form-input>
             </b-form-group>      
             <b-form-group id="input-group-2" label="Password" label-for="input-2">
-               <b-form-input autocomplete="off" id="input-2" placeholder="Enter Your Password" v-model="password"></b-form-input>
+               <b-form-input type="password" autocomplete="off" id="input-2" placeholder="Enter Your Password" v-model="password"></b-form-input>
             </b-form-group>
            <p>doesnt have an account ? register <span><router-link to="/register">here</router-link></span></p>
            <b-button class="mt-3" variant="primary" @click="postData">Submit</b-button>
@@ -34,10 +25,14 @@
 </template>
 
 <script>
+import headerWeb from '@/components/headerWeb'
 import DataService from '../urlApp/user'
 
 export default {
   name: 'login',
+  components: {
+    headerWeb
+  },
   data () {
     return {
       email: '',
@@ -51,7 +46,6 @@ export default {
         password: this.password
       }
 
-      // DataService.create('/user/auth', data)
       DataService.post('/user/auth', data)
         .then((res) => {
           this.$cookies.set('jwt', res.data.token, '1h')

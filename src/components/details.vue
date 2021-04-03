@@ -2,31 +2,46 @@
   <div id="details">
     <headerWeb />
      <b-container id="content">
-      <b-row v-if="datas" class="justify-content-md-center">
-        <b-col cols="4">
-          <img id="product-image" :src="datas.picture">
-        </b-col>
-        <b-col cols="8">
-          <h3>{{datas.name}}</h3>
-          <div>
-            <b-row class="justify-content-md-left">
-              <h4 id="label" class="mr-3">price</h4>
-              <h4>Rp.{{datas.price}}</h4>
+      <b-row v-if="datas">
+        <b-col cols="12">
+          <b-card>
+            <b-row>
+              <b-col cols="4">
+                <img id="product-image" :src="datas.picture">
+              </b-col>
+              <b-col cols="8">
+                <h3>{{datas.name}}</h3>
+                <b-row class="mt-5">
+                  <b-col cols="12" class="d-flex justify-content-start">
+                    <h4 id="label" class="mr-3">price</h4>
+                    <h4>Rp.{{datas.price}}</h4>
+                  </b-col>
+                </b-row>
+                <b-row class="mt-2">
+                  <b-col cols="4">
+                    <label for="amount">Jumlah</label>
+                    <b-form-spinbutton id="amount" min="1" v-model="value" max="100"></b-form-spinbutton>
+                  </b-col>
+                </b-row>
+                <b-row class="mt-5">
+                  <b-col cols="12">
+                   <h4 class="mr-5">description</h4>
+                    <p id="description">
+                      Lorem ipsum dolor sit amet, consectetur   adipisicing elit, sed do eiusmod
+                      tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam,
+                      quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo
+                    </p> 
+                  </b-col>       
+                </b-row>
+                <b-row>
+                  <b-col cols="12">
+                    <b-button class="mt-3" @click="addToCart" variant="primary" >Add to Cart</b-button>
+                    <b-button class="mt-3" @click="buyNow"  variant="primary">Buy Now</b-button>                  
+                  </b-col>
+                </b-row>
+              </b-col>
             </b-row>
-            <div>
-             <label for="amount">Jumlah</label>
-             <b-form-spinbutton id="amount" min="1" v-model="value" max="100"></b-form-spinbutton>
-            </div>
-
-            <div class="d-flex align-items-left mt-5">
-              <h4 class="mr-5">description</h4>
-              <p id="description">Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod
-              tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam,
-              quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo</p>
-            </div>
-            <b-button class="mt-3" @click="addToCart" variant="primary" >Add to Cart</b-button>
-            <b-button class="mt-3" @click="buyNow"  variant="primary">Buy Now</b-button>
-          </div>
+          </b-card>
         </b-col>
       </b-row>
       <b-row style="margin-top: 100px;">
@@ -201,7 +216,6 @@ export default {
 #product-image {
   width: 300px;
   height: 300px;
-
 }
 
 #content {

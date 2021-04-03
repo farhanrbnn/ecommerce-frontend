@@ -1,16 +1,7 @@
 <template>
   <div class="checkout">
-    <b-navbar class="mb-5" toggleable="lg" type="dark" variant="dark">
-      <b-navbar-brand href="/" id="brand">GamersCrib</b-navbar-brand>
-      <b-navbar-toggle target="nav-collapse"></b-navbar-toggle>
-      <b-collapse id="nav-collapse" is-nav>
-      <b-navbar-nav class="ml-auto">
-        <b-nav-item><router-link to="/cart"><b-img v-bind:src="require('@/assets/cart-logo.png')" fluid alt="Fluid image"></b-img></router-link></b-nav-item>
-        <b-nav-item><router-link to="/login"><p id="router">Login</p></router-link></b-nav-item>
-      </b-navbar-nav>
-      </b-collapse>
-     </b-navbar>
-     <b-container>
+    <headerWeb />
+     <b-container class="mt-5">
       <b-row>
         <b-col md="6">
           <h4>BILLING DETAILS</h4>
@@ -112,6 +103,7 @@
 </template>
 
 <script>
+import headerWeb from '@/components/headerWeb'
 import axios from 'axios'
 import regex from '../utils/regex'
 import toInteger from '../utils/toInteger'
@@ -119,6 +111,9 @@ import grandTotal from '../utils/grandTotal'
 
 export default {
   name: 'checkout',
+  components: {
+    headerWeb
+  },
   data () {
     return {
       orders: null,
