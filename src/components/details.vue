@@ -41,23 +41,11 @@
                   </b-col>
                 </b-row>
               </b-col>
-
-     <b-container id="content" class="mt-5">
-      <b-row v-if="datas" class="justify-content-md-center">
-        <b-col cols="4">
-          <img id="product-image" :src="datas.picture">
-        </b-col>
-        <b-col cols="8">
-          <h3>{{datas.name}}</h3>
-          <div>
-            <b-row class="justify-content-md-left">
-              <h4 id="label" class="mr-3">price</h4>
-              <h4>Rp.{{datas.price}}</h4>
-
             </b-row>
           </b-card>
         </b-col>
       </b-row>
+              </b-col>
       <b-row style="margin-top: 100px;">
         <b-col cols=12>
           <h3>Related Products</h3>

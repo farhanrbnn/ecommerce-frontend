@@ -1,9 +1,6 @@
 <template>
   <div class="shop">
-    <div id="navbar">
       <headerWeb />
-     </div>
-     <b-container>
 
      <b-container class="mt-5">
 
