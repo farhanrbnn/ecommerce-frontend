@@ -1,5 +1,6 @@
 <template>
   <div class="homepage">
+
      <headerWeb />
      <b-container class="px-0" fluid>
       <b-img id="home-img" v-bind:src="require('@/assets/home-pic.jpg')" fluid alt="Fluid image"></b-img>

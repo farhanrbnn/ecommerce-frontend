@@ -1,5 +1,6 @@
 <template>
   <div id="details">
+
     <headerWeb />
      <b-container id="content">
       <b-row v-if="datas">
@@ -40,6 +41,19 @@
                   </b-col>
                 </b-row>
               </b-col>
+
+     <b-container id="content" class="mt-5">
+      <b-row v-if="datas" class="justify-content-md-center">
+        <b-col cols="4">
+          <img id="product-image" :src="datas.picture">
+        </b-col>
+        <b-col cols="8">
+          <h3>{{datas.name}}</h3>
+          <div>
+            <b-row class="justify-content-md-left">
+              <h4 id="label" class="mr-3">price</h4>
+              <h4>Rp.{{datas.price}}</h4>
+
             </b-row>
           </b-card>
         </b-col>
@@ -82,7 +96,8 @@ export default {
       value: 1,
       category: null,
       itemByCat: null,
-      jwt: null
+      jwt: null,
+      hide: true
     }
   },
   async created () {
@@ -189,6 +204,10 @@ export default {
       } else {
         this.$router.push('/login')
       }
+    },
+    authLogout () {
+      this.$cookies.remove('jwt')
+      this.$router.push('/login')
     }
   }
 }
