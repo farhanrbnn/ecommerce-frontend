@@ -1,5 +1,6 @@
 <template>
   <div id="inputGoods">
+    <headerWeb />
     <div id="form">
       <b-form-group id="input-group-1" label="Nama Barang" label-for="input-1">
         <b-form-input id="input-1" placeholder="nama barang" v-model="name"></b-form-input>
@@ -20,10 +21,14 @@
 </template>
 
 <script>
+import headerWeb from '@/components/headerWeb'
 import DataService from '../urlApp/user'
 
 export default {
   name: 'inputGoods',
+  components: {
+    headerWeb
+  },
   data () {
     return {
       url: null,
@@ -56,7 +61,7 @@ export default {
 
 
       // DataService.create('/post', data)
-      DataService.get('/product/post', data)
+      DataService.get('/items/store', data)
         .then((res) => {
           this.name = ''
           this.category = ''

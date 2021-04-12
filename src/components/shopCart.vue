@@ -1,15 +1,6 @@
 <template>
   <div class="shopCart">
-     <b-navbar class="mb-5" toggleable="lg" type="dark" variant="dark">
-      <b-navbar-brand href="/" id="brand">GamersCrib</b-navbar-brand>
-      <b-navbar-toggle target="nav-collapse"></b-navbar-toggle>
-      <b-collapse id="nav-collapse" is-nav>
-      <b-navbar-nav class="ml-auto">
-        <b-nav-item><b-img v-bind:src="require('@/assets/cart-logo.png')" fluid alt="Fluid image"></b-img></b-nav-item>
-        <b-nav-item><router-link to="/login"><p id="router">Login</p></router-link></b-nav-item>
-      </b-navbar-nav>
-      </b-collapse>
-     </b-navbar>
+    <headerWeb />
      <b-container>
       <h3 class="no-items" v-if="orders.length === 0">Your cart is empty</h3>
         <b-card v-if="orders" v-for="(data, idx) in orders" :key="idx">
@@ -40,12 +31,16 @@
 </template>
 
 <script>
+import headerWeb from '@/components/headerWeb'
 import regex from '../utils/regex'
 import grandTotal from '../utils/grandTotal'
 import toInteger from '../utils/toInteger'
 
 export default {
   name: 'shopCart',
+  components: {
+    headerWeb
+  },
   data () {
     return {
       orders: null,

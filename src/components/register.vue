@@ -1,5 +1,6 @@
 <template>
   <div id="register">
+    <headerWeb />
     <div id="form">
       <h2>Register</h2>
       <b-form-group id="input-group-1" label="First Name" label-for="input-1">
@@ -23,10 +24,14 @@
 </template>
 
 <script>
+import headerWeb from '@/components/headerWeb'
 import DataService from '../urlApp/user'
 
 export default {
   name: 'register',
+  components: {
+    headerWeb
+  },
   data () {
     return {
       firstName: '',

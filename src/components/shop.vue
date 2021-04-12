@@ -1,17 +1,6 @@
 <template>
   <div class="shop">
-    <div id="navbar">
-    <b-navbar toggleable="lg" type="dark" variant="dark">
-      <b-navbar-brand href="/" id="brand">GamersCrib</b-navbar-brand>
-      <b-navbar-toggle target="nav-collapse"></b-navbar-toggle>
-      <b-collapse id="nav-collapse" is-nav>
-      <b-navbar-nav class="ml-auto">
-        <b-nav-item><router-link to="/cart"><b-img v-bind:src="require('@/assets/cart-logo.png')" fluid alt="Fluid image"></b-img></router-link></b-nav-item>
-        <b-nav-item><router-link to="/login"><p id="router">Login</p></router-link></b-nav-item>
-      </b-navbar-nav>
-      </b-collapse>
-     </b-navbar>
-     </div>
+    <headerWeb />
      <b-container>
        <div id="sidenav">
         <h4>Category</h4>
@@ -39,11 +28,15 @@
 </template>
 
 <script>
+import headerWeb from '@/components/headerWeb'
 import DataService from '../urlApp/user'
 import regex from '../utils/regex'
 
 export default {
   name: 'shop',
+  components: {
+    headerWeb
+  },
   data () {
     return {
       datas: null,
@@ -52,7 +45,7 @@ export default {
     }
   },
   created () {
-    DataService.get('/')
+    DataService.get('/items')
       .then((res) => {
         let apiData = res.data.data
         let categoryArr = []
@@ -79,7 +72,7 @@ export default {
       }
 
       if (this.selected === 'All') {
-        DataService.get('/')
+        DataService.get('/items')
           .then((res) => {
             let apiData = res.data.data
 
@@ -95,7 +88,7 @@ export default {
           })
       }
 
-      DataService.post('/post/items', postCat)
+      DataService.post('/items/category', postCat)
         .then((res) => {
           let apiData = res.data.data
 

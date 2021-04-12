@@ -1,10 +1,23 @@
 <template>
   <div id="details">
     <headerWeb />
-     <b-container id="content">
+     <b-container  id="content" >
       <b-row v-if="datas" class="justify-content-md-center">
-        <b-col cols="4">
-          <img id="product-image" :src="datas.picture">
+        <b-col cols="12">
+          <b-card>
+            <b-row>
+              <b-cols cols="6">
+                <img id="product-image" :src="datas.picture">
+              </b-cols>
+              <b-cols cols="6">
+                <h3>{{datas.name}}</h3>
+                <b-row>
+                   <h4 id="label" class="mr-3">price</h4>
+                   <h4>Rp.{{datas.price}}</h4>
+                </b-row>
+              </b-cols>
+            </b-row>
+          </b-card>
         </b-col>
         <b-col cols="8">
           <h3>{{datas.name}}</h3>
@@ -63,7 +76,7 @@ export default {
   data () {
     return {
       datas: null,
-      url: '/' + this.userId,
+      url: '/items/' + this.userId,
       value: 1,
       category: null,
       itemByCat: null,
@@ -90,7 +103,7 @@ export default {
         category: this.category
       }
 
-      await DataService.post('/post/items', postCat)
+      await DataService.post('/items/category', postCat)
       .then((res) => {
         const apiData = res.data.data
 
@@ -206,6 +219,7 @@ export default {
 
 #content {
   margin-top: 100px;
+
 }
 
 #label {

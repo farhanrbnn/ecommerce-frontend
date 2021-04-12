@@ -48,7 +48,7 @@ export default {
   },
   created () {
     // DataService.getAllData()
-    DataService.get('/')
+    DataService.get('/items')
       .then((res) => {
         let apiData = res.data.data
 
