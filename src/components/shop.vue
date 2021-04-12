@@ -1,7 +1,14 @@
 <template>
   <div class="shop">
+<<<<<<< HEAD
     <headerWeb />
      <b-container>
+=======
+      <headerWeb />
+
+     <b-container class="mt-5">
+
+>>>>>>> 2f7c7f5b70807bc99bf4474e98ec994be76cac69
        <div id="sidenav">
         <h4>Category</h4>
         <b-form-select v-model="selected">

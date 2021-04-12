@@ -1,7 +1,11 @@
 <template>
   <div class="shopCart">
     <headerWeb />
+<<<<<<< HEAD
      <b-container>
+=======
+     <b-container class="mt-5">
+>>>>>>> 2f7c7f5b70807bc99bf4474e98ec994be76cac69
       <h3 class="no-items" v-if="orders.length === 0">Your cart is empty</h3>
         <b-card v-if="orders" v-for="(data, idx) in orders" :key="idx">
           <b-row>

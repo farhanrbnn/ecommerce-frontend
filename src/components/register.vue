@@ -50,8 +50,7 @@ export default {
         password: this.password,
         confirmPassword: this.confirmPassword
       }
-
-      // DataService.create('/post/register', data)
+      
       DataService.post('/post/register', data)
         .then((res) => {
           if (res.data.status === '400') {

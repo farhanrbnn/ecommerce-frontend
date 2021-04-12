@@ -45,7 +45,9 @@ export default {
 	name: 'adminProdukView',
   data () {
     return {
-      items: null,
+      items:[{
+        
+      }],
       fields:['name', 'category', 'price', 'quantity', 'Actions']
     }
   },
