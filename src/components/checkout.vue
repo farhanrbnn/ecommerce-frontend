@@ -1,11 +1,7 @@
 <template>
   <div class="checkout">
     <headerWeb />
-<<<<<<< HEAD
-     <b-container>
-=======
      <b-container class="mt-5">
->>>>>>> 2f7c7f5b70807bc99bf4474e98ec994be76cac69
       <b-row>
         <b-col md="6">
           <h4>BILLING DETAILS</h4>

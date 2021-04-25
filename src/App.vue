@@ -1,15 +1,5 @@
 <template>
   <div id="app">
-    <b-navbar toggleable="lg" type="dark" variant="dark">
-      <b-navbar-brand href="/" id="brand">GamersCrib</b-navbar-brand>
-      <b-navbar-toggle target="nav-collapse"></b-navbar-toggle>
-      <b-collapse id="nav-collapse" is-nav>
-      <b-navbar-nav class="ml-auto">
-        <b-nav-item><router-link to="/cart"><b-img v-bind:src="require('@/assets/cart-logo.png')" fluid alt="Fluid image"></b-img></router-link></b-nav-item>
-        <b-nav-item><router-link to="/login"><p id="router">Login</p></router-link></b-nav-item>
-      </b-navbar-nav>
-      </b-collapse>
-     </b-navbar>
     <router-view/>
     <notifications group="cart" position="top center" width="500"/>
     <notifications group="auth" position="top center" width="500"/>

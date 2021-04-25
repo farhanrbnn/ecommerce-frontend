@@ -1,78 +1,32 @@
 <template>
   <div id="details">
-
     <headerWeb />
-<<<<<<< HEAD
-     <b-container  id="content" >
+    <b-container  id="content" >
       <b-row v-if="datas" class="justify-content-md-center">
         <b-col cols="12">
           <b-card>
             <b-row>
-              <b-cols cols="6">
+              <b-col cols="6">
                 <img id="product-image" :src="datas.picture">
-              </b-cols>
-              <b-cols cols="6">
+              </b-col>
+              <b-col cols="6">
                 <h3>{{datas.name}}</h3>
                 <b-row>
                    <h4 id="label" class="mr-3">price</h4>
                    <h4>Rp.{{datas.price}}</h4>
                 </b-row>
-              </b-cols>
+              </b-col>
             </b-row>
-          </b-card>
-        </b-col>
-        <b-col cols="8">
-          <h3>{{datas.name}}</h3>
-          <div>
-            <b-row class="justify-content-md-left">
-              <h4 id="label" class="mr-3">price</h4>
-              <h4>Rp.{{datas.price}}</h4>
-=======
-     <b-container id="content">
-      <b-row v-if="datas">
-        <b-col cols="12">
-          <b-card>
             <b-row>
-              <b-col cols="4">
-                <img id="product-image" :src="datas.picture">
+              <b-col cols="12">
+                <b-button class="mt-3" @click="addToCart" variant="primary" >Add to Cart</b-button>
+                <b-button class="mt-3" @click="buyNow"  variant="primary">Buy Now</b-button>                  
               </b-col>
-              <b-col cols="8">
-                <h3>{{datas.name}}</h3>
-                <b-row class="mt-5">
-                  <b-col cols="12" class="d-flex justify-content-start">
-                    <h4 id="label" class="mr-3">price</h4>
-                    <h4>Rp.{{datas.price}}</h4>
-                  </b-col>
-                </b-row>
-                <b-row class="mt-2">
-                  <b-col cols="4">
-                    <label for="amount">Jumlah</label>
-                    <b-form-spinbutton id="amount" min="1" v-model="value" max="100"></b-form-spinbutton>
-                  </b-col>
-                </b-row>
-                <b-row class="mt-5">
-                  <b-col cols="12">
-                   <h4 class="mr-5">description</h4>
-                    <p id="description">
-                      Lorem ipsum dolor sit amet, consectetur   adipisicing elit, sed do eiusmod
-                      tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam,
-                      quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo
-                    </p> 
-                  </b-col>       
-                </b-row>
-                <b-row>
-                  <b-col cols="12">
-                    <b-button class="mt-3" @click="addToCart" variant="primary" >Add to Cart</b-button>
-                    <b-button class="mt-3" @click="buyNow"  variant="primary">Buy Now</b-button>                  
-                  </b-col>
-                </b-row>
-              </b-col>
->>>>>>> 2f7c7f5b70807bc99bf4474e98ec994be76cac69
             </b-row>
           </b-card>
         </b-col>
       </b-row>
-              </b-col>
+    </b-col>
       <b-row style="margin-top: 100px;">
         <b-col cols=12>
           <h3>Related Products</h3>
@@ -88,9 +42,8 @@
         </b-col>
       </b-row>
      </b-container>
-  </div>
-</template>
-
+   </div>
+</template>   
 <script>
 import headerWeb from '@/components/headerWeb'
 import DataService from '../urlApp/user'
@@ -108,6 +61,7 @@ export default {
     return {
       datas: null,
       url: '/items/' + this.userId,
+      relatedUrl:'items/related/' + this.userId,
       value: 1,
       category: null,
       itemByCat: null,
@@ -116,8 +70,6 @@ export default {
     }
   },
   async created () {
-    // DataService.getFindById(this.url)
-
     this.jwt = this.$cookies.get('jwt')
    await DataService.get(this.url)
       .then((res) => {
@@ -135,14 +87,13 @@ export default {
         category: this.category
       }
 
-      await DataService.post('/items/category', postCat)
+      await DataService.get(this.relatedUrl)
       .then((res) => {
         const apiData = res.data.data
 
         for (let i = 0; i < apiData.length; i++) {
           const priceRegex = regex(apiData[i].price)
           apiData[i].price = priceRegex
-
         }
 
         this.itemByCat = apiData

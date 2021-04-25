@@ -1,26 +1,30 @@
 <template>
   <div id="register">
     <headerWeb />
+    <div class="d-flex container justify-content-center"> 
     <div id="form">
-      <h2>Register</h2>
-      <b-form-group id="input-group-1" label="First Name" label-for="input-1">
-        <b-form-input id="input-1" placeholder="First Name" v-model="firstName" autocomplete="off"></b-form-input>
-      </b-form-group>
-      <b-form-group id="input-group-2" label="Last Name" label-for="input-2">
-        <b-form-input id="input-2" placeholder="Last Name" v-model="lastName" autocomplete="off"></b-form-input>
-      </b-form-group>
-      <b-form-group id="input-group-3" label="email" label-for="input-2">
-        <b-form-input id="input-2" placeholder="email" v-model="email" autocomplete="off"></b-form-input>
-      </b-form-group>
-      <b-form-group id="input-group-4" label="Password" label-for="input-4">
-        <b-form-input id="input-4" type="password" placeholder="password" v-model="password" autocomplete="off"></b-form-input>
-      </b-form-group>
-       <b-form-group id="input-group-5" label="re-enter password" label-for="input-5">
-        <b-form-input id="input-5" type="password" placeholder="re-enter password" v-model="confirmPassword" autocomplete="off"></b-form-input>
-      </b-form-group>
-       <b-button class="mt-3" variant="primary" @click="postData">Submit</b-button>
+      <b-card>
+        <h2>Register</h2>
+        <b-form-group id="input-group-1" label="Full Name" label-for="input-1">
+          <b-form-input id="input-1" placeholder="full name" v-model="fullName" autocomplete="off" required></b-form-input>
+        </b-form-group>
+        <b-form-group id="input-group-2" label="email" label-for="input-2">
+          <b-form-input id="input-2" placeholder="email" v-model="email" autocomplete="off" required></b-form-input>
+        </b-form-group>
+        <b-form-group id="input-group-3" label="username" label-for="input-3">
+          <b-form-input id="input-3" placeholder="username" v-model="userName" autocomplete="off" required></b-form-input>
+        </b-form-group>
+        <b-form-group id="input-group-4" label="Password" label-for="input-4">
+         <b-form-input id="input-4" type="password" placeholder="password" v-model="password" autocomplete="off" required></b-form-input>
+        </b-form-group>
+        <b-form-group id="input-group-5" label="re-enter password" label-for="input-5">
+          <b-form-input id="input-5" type="password" placeholder="re-enter password" v-model="confirmPassword" autocomplete="off" required></b-form-input>
+        </b-form-group>
+        <b-button class="mt-3" variant="primary" @click="postData">Submit</b-button>
+      </b-card>
     </div>
   </div>
+</div>
 </template>
 
 <script>
@@ -34,9 +38,9 @@ export default {
   },
   data () {
     return {
-      firstName: '',
-      lastName: '',
+      fullName: '',
       email: '',
+      userName:'',
       password: '',
       confirmPassword: ''
     }
@@ -44,14 +48,14 @@ export default {
   methods: {
     postData () {
       let data = {
-        firstName: this.firstName,
-        lastName: this.lastName,
+        name: this.fullName,
+        userName: this.userName,
         email: this.email,
         password: this.password,
         confirmPassword: this.confirmPassword
       }
       
-      DataService.post('/post/register', data)
+      DataService.post('user/register', data)
         .then((res) => {
           if (res.data.status === '400') {
             this.email = ''
@@ -82,7 +86,8 @@ export default {
 
 <style scoped>
 #form {
-  margin: 0 auto;
+  margin-top: 50px;
+  /*margin: 0 auto;*/
   width: 500px;
 }
 
