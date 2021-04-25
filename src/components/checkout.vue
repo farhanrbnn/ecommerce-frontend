@@ -19,6 +19,7 @@
             <div class="mt-4">
               <p class="d-flex align-items-left mb-2">Address</p>
               <b-form-textarea
+                v-model="address"
                 id="textarea"
                 placeholder="Address"
                 max-rows="3"
@@ -28,21 +29,21 @@
             <div class="mt-4">
               <p class="d-flex align-items-left mb-2">Provinsi</p>
               <b-form-select v-model="prov_id">
-                <b-form-select-option v-for="(prov, idx) in provinsi" :key="idx" :value="prov.id">{{ prov.nama }}</b-form-select-option>
+                <b-form-select-option v-for="(prov, idx) in provinsi" :key="idx" :value="prov">{{ prov.nama }}</b-form-select-option>
                </b-form-select>
              </div>
 
             <div class="mt-4">
               <p class="d-flex align-items-left mb-2">Kota</p>
               <b-form-select v-model="kota_id">
-                <b-form-select-option v-for="(kot, idx) in kota" :key="idx" :value="kot.id">{{ kot.nama }}</b-form-select-option>
+                <b-form-select-option v-for="(kot, idx) in kota" :key="idx" :value="kot">{{ kot.nama }}</b-form-select-option>
               </b-form-select>
             </div>
 
             <div class="mt-4">
               <p class="d-flex align-items-left mb-2">Kecamatan</p>
               <b-form-select v-model="kec_id">
-                <b-form-select-option v-for="(kec, idx) in kecamatan" :key="idx" :value="kec.id">{{ kec.nama }}</b-form-select-option>
+                <b-form-select-option v-for="(kec, idx) in kecamatan" :key="idx" :value="kec">{{ kec.nama }}</b-form-select-option>
               </b-form-select>
             </div>
 
@@ -66,7 +67,7 @@
               ></b-form-input>
             </div>
 
-            <b-button class="mt-5" variant="primary">Submit</b-button>
+            <b-button class="mt-5" variant="primary" @click="post">Submit</b-button>
         <!-- <p> {{kecamatan}}</p> -->
           </div>
         </b-col>
@@ -118,11 +119,13 @@ export default {
     return {
       orders: null,
       provinsi: null,
+      address: null,
       kota: null,
       kecamatan: null,
       prov_id: null,
       kota_id: null,
-      kec_id: null
+      kec_id: null,
+      test: null
     }
   },
   created () {
@@ -143,6 +146,17 @@ export default {
 
     this.orders = localData
   },
+  methods: {
+    post () {
+      const data = {
+        address: this.address,
+        provinsi: this.prov_id.nama,
+        kota: this.kota_id.nama,
+        kecamatan: this.kec_id.nama
+      }
+      console.log(data)
+    }
+  },
   computed: {
     grandTotal () {
       let orderData = this.orders
@@ -159,14 +173,14 @@ export default {
  }, 
  asyncComputed: {
   kotaRegion: {
-    get () {
-      return axios.get('https://dev.farizdotid.com/api/daerahindonesia/kota?id_provinsi=' + this.prov_id)
+    async get () {
+      return await axios.get('https://dev.farizdotid.com/api/daerahindonesia/kota?id_provinsi=' + this.prov_id.id)
       .then((res) => this.kota = res.data.kota_kabupaten)
     }
   },
   kecamatanRegion: {
-    get () {
-      return axios.get('https://dev.farizdotid.com/api/daerahindonesia/kecamatan?id_kota=' + this.kota_id)
+   async get () {
+      return await axios.get('https://dev.farizdotid.com/api/daerahindonesia/kecamatan?id_kota=' + this.kota_id.id)
       .then((res) => this.kecamatan = res.data.kecamatan)
     }
   }
