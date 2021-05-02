@@ -6,7 +6,12 @@
       <b-navbar-nav class="ml-auto">
         <b-nav-item><router-link to="/cart"><b-img v-bind:src="require('@/assets/cart-logo.png')" fluid alt="Fluid image"></b-img></router-link></b-nav-item>
         <b-nav-item v-if="!jwt" v-show="true"><router-link to="/login"><p id="router">Login</p></router-link></b-nav-item>
-        <b-nav-item v-if="jwt" @click="removeAuth"><p id="router">Logout</p></b-nav-item>
+         <b-nav-item-dropdown v-if="jwt" text="Account" right>
+          <b-dropdown-item href="#">Profile</b-dropdown-item>
+          <b-dropdown-item href="#">Order History</b-dropdown-item>
+          <b-dropdown-item href="#">My Whistlist</b-dropdown-item>
+          <b-dropdown-item href="#" @click="removeAuth">Logout</b-dropdown-item>
+        </b-nav-item-dropdown>
       </b-navbar-nav>
       </b-collapse>
      </b-navbar>		

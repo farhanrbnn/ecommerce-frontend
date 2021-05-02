@@ -10,7 +10,6 @@ import AsyncComputed from 'vue-async-computed'
 import 'bootstrap/dist/css/bootstrap.css'
 import 'bootstrap-vue/dist/bootstrap-vue.css'
 import VueCookie from 'vue-cookies'
-import Vuelidate from 'vuelidate'
 
 Vue.config.productionTip = false
 Vue.use(BootstrapVue)
@@ -18,7 +17,7 @@ Vue.use(VueCookie)
 Vue.use(Notifications)
 Vue.use(AsyncComputed)
 Vue.use(BootstrapVueIcons)
-Vue.use(Vuelidate)
+
 
 /* eslint-disable no-new */
 new Vue({

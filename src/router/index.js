@@ -17,6 +17,7 @@ import adminProdukView from '@/components/adminProdukView'
 Vue.use(Router)
 
 export default new Router({
+  mode: 'history',
   routes: [
     {
       path: '/',
