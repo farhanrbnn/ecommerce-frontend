@@ -134,11 +134,11 @@ export default {
         const jwt = this.$cookies.get('jwt')
         const decodedJwt = JSON.parse(atob(jwt.split('.')[1]))
 
-        let orderItem = ''
+        let orderItem = []
         let total = ''
 
         for(let i = 0; i < storageItem.length; i++){
-          orderItem = storageItem[i].id
+          orderItem.push(storageItem[i].id)
           total = storageItem[i].price
         }
 
@@ -165,7 +165,7 @@ export default {
               timer: 1500
             })
           }
-          
+
         })
         .catch((err) => {
           console.log(err)

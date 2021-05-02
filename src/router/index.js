@@ -12,6 +12,8 @@ import adminLogin from '@/components/adminLogin'
 import adminRegister from '@/components/adminRegister'
 import adminPage from '@/components/adminPage'
 import adminProdukView from '@/components/adminProdukView'
+import userOrderHistory from '@/components/userOrderHistory'
+
 
 
 Vue.use(Router)
@@ -79,6 +81,11 @@ export default new Router({
       path: '/admin/produk',
       name: 'adminProdukView',
       component: adminProdukView
+    },
+    {
+      path:'/account/order-history',
+      name:'userOrderHistory',
+      component: userOrderHistory
     }
   ]
 })
