@@ -1,7 +1,7 @@
 <template>
   <div id="register">
     <headerWeb />
-    <div class="d-flex container justify-content-center"> 
+    <div class="d-flex container justify-content-center">
     <div id="form">
       <b-card>
         <h2>Register</h2>
@@ -10,6 +10,7 @@
         </b-form-group>
         <b-form-group id="input-group-2" label="email" label-for="input-2">
           <b-form-input id="input-2" placeholder="email" v-model="email" autocomplete="off" required></b-form-input>
+           <span class="error" v-if="msg.email">{{msg.email}}</span>
         </b-form-group>
         <b-form-group id="input-group-3" label="username" label-for="input-3">
           <b-form-input id="input-3" placeholder="username" v-model="userName" autocomplete="off" required></b-form-input>
@@ -19,6 +20,8 @@
         </b-form-group>
         <b-form-group id="input-group-5" label="re-enter password" label-for="input-5">
           <b-form-input id="input-5" type="password" placeholder="re-enter password" v-model="confirmPassword" autocomplete="off" required></b-form-input>
+           <span class="error" v-if="msg.password">{{msg.password}}</span>
+
         </b-form-group>
         <b-button class="mt-3" variant="primary" @click="postData">Submit</b-button>
       </b-card>
@@ -40,12 +43,39 @@ export default {
     return {
       fullName: '',
       email: '',
-      userName:'',
+      userName: '',
       password: '',
-      confirmPassword: ''
+      confirmPassword: '',
+      msg: []
+    }
+  },
+  watch: {
+    email(value){
+      this.email = value
+      this.validateEmail(value)
+    },
+    confirmPassword(value){
+      this.confirmPassword = value
+      this.validatePassword(value)
     }
   },
   methods: {
+    validateEmail(value) {
+      if (/^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/.test(value)){
+        this.msg['email'] = '';
+      } else {
+         this.msg['email'] = 'Invalid Email Address';
+      }
+    },
+    validatePassword(value){
+      const password = this.password
+
+      if(value != password){
+        this.msg['password'] = "password doesn't match"
+      } else {
+        this.msg['password'] = ''
+      }
+    },
     postData () {
       let data = {
         name: this.fullName,
@@ -54,7 +84,6 @@ export default {
         password: this.password,
         confirmPassword: this.confirmPassword
       }
-      
       DataService.post('user/register', data)
         .then((res) => {
           if (res.data.status === '400') {
@@ -89,6 +118,9 @@ export default {
   margin-top: 50px;
   /*margin: 0 auto;*/
   width: 500px;
+}
+.error {
+  color:red;
 }
 
 </style>

@@ -20,13 +20,12 @@
             <b-row>
               <b-col cols="12">
                 <b-button class="mt-3" @click="addToCart" variant="primary" >Add to Cart</b-button>
-                <b-button class="mt-3" @click="buyNow"  variant="primary">Buy Now</b-button>                  
+                <b-button class="mt-3" @click="buyNow"  variant="primary">Buy Now</b-button>       
               </b-col>
             </b-row>
           </b-card>
         </b-col>
       </b-row>
-    </b-col>
       <b-row style="margin-top: 100px;">
         <b-col cols=12>
           <h3>Related Products</h3>
@@ -43,7 +42,7 @@
       </b-row>
      </b-container>
    </div>
-</template>   
+</template>
 <script>
 import headerWeb from '@/components/headerWeb'
 import DataService from '../urlApp/user'
@@ -61,7 +60,7 @@ export default {
     return {
       datas: null,
       url: '/items/' + this.userId,
-      relatedUrl:'items/related/' + this.userId,
+      relatedUrl: 'items/related/' + this.userId,
       value: 1,
       category: null,
       itemByCat: null,
@@ -71,7 +70,7 @@ export default {
   },
   async created () {
     this.jwt = this.$cookies.get('jwt')
-   await DataService.get(this.url)
+    await DataService.get(this.url)
       .then((res) => {
         let apiData = res.data.data
         apiData.price = regex(apiData.price)
@@ -83,11 +82,7 @@ export default {
         alert('error when fetching API' + err)
       })
 
-      const postCat = {
-        category: this.category
-      }
-
-      await DataService.get(this.relatedUrl)
+    await DataService.get(this.relatedUrl)
       .then((res) => {
         const apiData = res.data.data
 
@@ -112,6 +107,7 @@ export default {
         picture: this.datas.picture,
         product: this.datas.name,
         price: this.datas.price,
+        id: this.userId,
         quantity: this.value,
         subTotal: total
       }
@@ -120,14 +116,13 @@ export default {
 
       if (this.jwt) {
         if (orderData) {
-        orderUpdate(order, orderData)
+          orderUpdate(order, orderData)
 
-        const parse = JSON.stringify(orderData)
-        localStorage.setItem('order', parse)
-      }
+          const parse = JSON.stringify(orderData)
+          localStorage.setItem('order', parse)
+        }
         this.$store.commit('addOrder', order)
         this.$router.push('/cart')
-
       } else {
         this.$router.push('/login')
       }
@@ -140,6 +135,7 @@ export default {
         picture: this.datas.picture,
         product: this.datas.name,
         price: this.datas.price,
+        id: this.userId,
         quantity: this.value,
         subTotal: total
       }
@@ -166,7 +162,6 @@ export default {
             type: 'warn'
           })
         }
-
       } else {
         this.$router.push('/login')
       }

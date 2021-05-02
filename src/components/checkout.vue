@@ -6,16 +6,6 @@
         <b-col md="6">
           <h4>BILLING DETAILS</h4>
           <div class=" mt-4">
-            <b-form>    
-             <p class="d-flex align-items-left mb-2">Nama Lengkap</p>
-             <b-form-input
-              id="first-name"
-              label="First Name"
-              class="mb-2 mr-sm-2 mb-sm-0"
-              placeholder="Full Name"
-              ></b-form-input>
-            </b-form>
-
             <div class="mt-4">
               <p class="d-flex align-items-left mb-2">Address</p>
               <b-form-textarea
@@ -55,18 +45,6 @@
               placeholder="Kode Pos"
               ></b-form-input>
             </div>
-
-             <div class="mt-4">
-              <p class="d-flex align-items-left mb-2">Email</p>
-             <b-form-input
-              id="email"
-              class="mb-2 mr-sm-2 mb-sm-0"
-              placeholder="Email"
-              type="email"
-              autocomplete="off"
-              ></b-form-input>
-            </div>
-
             <b-button class="mt-5" variant="primary" @click="post">Submit</b-button>
         <!-- <p> {{kecamatan}}</p> -->
           </div>
@@ -109,6 +87,9 @@ import axios from 'axios'
 import regex from '../utils/regex'
 import toInteger from '../utils/toInteger'
 import grandTotal from '../utils/grandTotal'
+import DataService from '../urlApp/user'
+import Swal from 'sweetalert2'
+
 
 export default {
   name: 'checkout',
@@ -148,14 +129,55 @@ export default {
   },
   methods: {
     post () {
-      const data = {
-        address: this.address,
-        provinsi: this.prov_id.nama,
-        kota: this.kota_id.nama,
-        kecamatan: this.kec_id.nama
+      try {
+        const storageItem = JSON.parse(localStorage.getItem('order'))
+        const jwt = this.$cookies.get('jwt')
+        const decodedJwt = JSON.parse(atob(jwt.split('.')[1]))
+
+        let orderItem = ''
+        let total = ''
+
+        for(let i = 0; i < storageItem.length; i++){
+          orderItem = storageItem[i].id
+          total = storageItem[i].price
+        }
+
+        const data = {
+          user:decodedJwt.id,
+          address: this.address,
+          item:orderItem,
+          provinsi: this.prov_id.nama,
+          kota: this.kota_id.nama,
+          kecamatan: this.kec_id.nama,
+          total:total
+        }
+
+        DataService.post('user/purchased', data)
+        .then((res) => {
+          const response = res.data
+
+          if(response.status === '200') {
+            Swal.fire({
+              title:'success',
+              text:'your order has been checkout !',
+              icon:'success',
+              showConfirmButton: false,
+              timer: 1500
+            })
+          }
+
+
+        })
+        .catch((err) => {
+          console.log(err)
+        })
+
+      } catch (err) {
+        console.log(err)
+
       }
-      console.log(data)
     }
+
   },
   computed: {
     grandTotal () {
