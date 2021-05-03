@@ -157,6 +157,7 @@ export default {
           const response = res.data
 
           if(response.status === '200') {
+            localStorage.clear()
             Swal.fire({
               title:'success',
               text:'your order has been checkout !',
