@@ -106,10 +106,19 @@ export default {
       prov_id: null,
       kota_id: null,
       kec_id: null,
-      test: null
+      test: null,
+      userAddress:''
     }
   },
   created () {
+    DataService.get('/user/list/'+this.jwtDecode)
+    .then((res) => {
+      this.userAddress = res.data.data.address
+    })
+    .catch((err) => {
+      console.log(err)
+    })
+
     axios.get('https://dev.farizdotid.com/api/daerahindonesia/provinsi')
       .then((res) => {
         this.provinsi = res.data.provinsi
@@ -131,9 +140,7 @@ export default {
     post () {
       try {
         const storageItem = JSON.parse(localStorage.getItem('order'))
-        const jwt = this.$cookies.get('jwt')
-        const decodedJwt = JSON.parse(atob(jwt.split('.')[1]))
-
+      
         let orderItem = []
         let total = ''
 
@@ -143,7 +150,7 @@ export default {
         }
 
         const data = {
-          user:decodedJwt.id,
+          user:this.jwtDecode,
           address: this.address,
           item:orderItem,
           provinsi: this.prov_id.nama,
@@ -164,6 +171,14 @@ export default {
               showConfirmButton: false,
               timer: 1500
             })
+          } else {
+            Swal.fire({
+              title:'error',
+              text:'something went wrong',
+              icon:'error',
+              showConfirmButton: false,
+              timer: 1500
+            })            
           }
 
         })
@@ -190,6 +205,13 @@ export default {
 
       let sumTotal = regex(grandTotal(arrSubtotal, 'sum'))
       return sumTotal
+    },
+    jwtDecode () {
+      const jwt = this.$cookies.get('jwt')
+      const decodedJwt = JSON.parse(atob(jwt.split('.')[1]))
+
+      return decodedJwt.id
+
     }
  }, 
  asyncComputed: {
