@@ -149,7 +149,7 @@ export default {
           provinsi: this.prov_id.nama,
           kota: this.kota_id.nama,
           kecamatan: this.kec_id.nama,
-          total:total
+          total:this.grandTotal
         }
 
         DataService.post('user/purchased', data)
