@@ -19,6 +19,9 @@
             </b-row>
             <b-row>
               <b-col cols="12">
+                <b-button size="md" @click="addWishlist" variant="danger" class="mt-3">
+                  <b-icon icon="heart-fill"></b-icon>
+                </b-button>
                 <b-button class="mt-3" @click="addToCart" variant="primary" >Add to Cart</b-button>
                 <b-button class="mt-3" @click="buyNow"  variant="primary">Buy Now</b-button>       
               </b-col>
@@ -97,8 +100,39 @@ export default {
         alert('error when fetching API' + err)
       })
   },
+  computed:{
+    jwtDecode () {
+      const jwt = this.$cookies.get('jwt')
+      const decodedJwt = JSON.parse(atob(jwt.split('.')[1]))
 
+      return decodedJwt.id
+
+    }
+  },
   methods: {
+    addWishlist () {
+      const data = {
+        item:this.userId,
+        user: this.jwtDecode
+      }
+      const url = 'user/wishlist'
+
+      DataService.post(url, data)
+      .then((res) => {
+         this.$notify({
+            group: 'cart',
+            text: 'Success add item to wishlist',
+            type: 'success'
+          })
+      })
+      .catch((err) => {
+        this.$notify({
+            group: 'cart',
+            text: 'Failed add item to wishtlist',
+            type: 'warn'
+          })
+      })
+    },
     buyNow () {
       let priceInt = toInteger(this.datas.price)
       let total = this.value * priceInt

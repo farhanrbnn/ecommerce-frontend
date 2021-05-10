@@ -15,11 +15,14 @@
         <b-form-group id="input-group-3" label="username" label-for="input-3">
           <b-form-input id="input-3" placeholder="username" v-model="userName" autocomplete="off" required></b-form-input>
         </b-form-group>
-        <b-form-group id="input-group-4" label="Password" label-for="input-4">
-         <b-form-input id="input-4" type="password" placeholder="password" v-model="password" autocomplete="off" required></b-form-input>
+        <b-form-group id="input-group-4" label="Gender" label-for="input-4">
+          <b-form-select id="input-4" v-model="selected" :options="options"></b-form-select>
         </b-form-group>
-        <b-form-group id="input-group-5" label="re-enter password" label-for="input-5">
-          <b-form-input id="input-5" type="password" placeholder="re-enter password" v-model="confirmPassword" autocomplete="off" required></b-form-input>
+        <b-form-group id="input-group-5" label="Password" label-for="input-5">
+         <b-form-input id="input-5" type="password" placeholder="password" v-model="password" autocomplete="off" required></b-form-input>
+        </b-form-group>
+        <b-form-group id="input-group-6" label="re-enter password" label-for="input-6">
+          <b-form-input id="input-6" type="password" placeholder="re-enter password" v-model="confirmPassword" autocomplete="off" required></b-form-input>
            <span class="error" v-if="msg.password">{{msg.password}}</span>
 
         </b-form-group>
@@ -46,31 +49,36 @@ export default {
       userName: '',
       password: '',
       confirmPassword: '',
+      selected:null,
+      options:[
+        {value:'male', text:'male'},
+        {value:'female', text:'female'}
+        ],
       msg: []
     }
   },
   watch: {
-    email(value){
+    email (value) {
       this.email = value
       this.validateEmail(value)
     },
-    confirmPassword(value){
+    confirmPassword (value) {
       this.confirmPassword = value
       this.validatePassword(value)
     }
   },
   methods: {
-    validateEmail(value) {
-      if (/^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/.test(value)){
-        this.msg['email'] = '';
+    validateEmail (value) {
+      if (/^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/.test(value)) {
+        this.msg['email'] = ''
       } else {
-         this.msg['email'] = 'Invalid Email Address';
+        this.msg['email'] = 'Invalid Email Address'
       }
     },
-    validatePassword(value){
+    validatePassword (value) {
       const password = this.password
 
-      if(value != password){
+      if (value !== password) {
         this.msg['password'] = "password doesn't match"
       } else {
         this.msg['password'] = ''
@@ -81,9 +89,11 @@ export default {
         name: this.fullName,
         userName: this.userName,
         email: this.email,
+        gender: this.selected,
         password: this.password,
         confirmPassword: this.confirmPassword
       }
+      
       DataService.post('user/register', data)
         .then((res) => {
           if (res.data.status === '400') {

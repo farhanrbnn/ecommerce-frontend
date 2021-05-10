@@ -1,11 +1,12 @@
 <template>
+  <b-overlay :show="show" :opacity="opacity" rounded="sm">
   <div class="checkout">
     <headerWeb />
-     <b-container class="mt-5">
+     <b-container class="mt-5" id="content">
       <b-row>
         <b-col md="6">
           <h4>BILLING DETAILS</h4>
-          <div class=" mt-4">
+          <div class=" mt-4" v-if="this.userAddress.length == 0">
             <div class="mt-4">
               <p class="d-flex align-items-left mb-2">Address</p>
               <b-form-textarea
@@ -43,11 +44,23 @@
               id="kode-pos"
               class="mb-2 mr-sm-2 mb-sm-0"
               placeholder="Kode Pos"
+              v-model="kodePos"
               ></b-form-input>
             </div>
-            <b-button class="mt-5" variant="primary" @click="post">Submit</b-button>
         <!-- <p> {{kecamatan}}</p> -->
           </div>
+          <div class="mt-4" v-if="this.userAddress">
+            <b-card v-for="(data, idx) in userAddress" :key="idx">
+              <h5>your address</h5>
+              <div class="row">
+                <div class="col-md-12">
+                  <p>{{data.address}}</p>                  
+                </div>
+              </div>
+            </b-card>
+          </div>
+
+          <b-button class="mt-5" variant="primary" @click="post">Submit</b-button>
         </b-col>
         <b-col md="6">
           <h4 class="mb-4">ORDER SUMMARY</h4>
@@ -79,7 +92,10 @@
       </b-row>
      </b-container>
   </div>
+        </b-overlay>
+
 </template>
+
 
 <script>
 import headerWeb from '@/components/headerWeb'
@@ -107,13 +123,17 @@ export default {
       kota_id: null,
       kec_id: null,
       test: null,
-      userAddress:''
+      kodePos: null,
+      userAddress:'',
+      show:true,
+      opacity:'1'
     }
   },
   created () {
-    DataService.get('/user/list/'+this.jwtDecode)
+    DataService.get('user/address/'+this.jwtDecode)
     .then((res) => {
-      this.userAddress = res.data.data.address
+      this.userAddress = res.data.data
+      this.show = false
     })
     .catch((err) => {
       console.log(err)
@@ -156,7 +176,18 @@ export default {
           provinsi: this.prov_id.nama,
           kota: this.kota_id.nama,
           kecamatan: this.kec_id.nama,
+          kodePos: this.kodePos,
           total:this.grandTotal
+        }
+
+        if(this.userAddress.length == 0){
+          DataService.post('user/address', data)
+          .then((res) => {
+            console.log('success')
+          })
+          .catch((err) => {
+            console.log(err)
+          })
         }
 
         DataService.post('user/purchased', data)
@@ -253,4 +284,9 @@ export default {
 #order-list {
   border-top: 1px solid black;
 }
+
+#content {
+  height: 100vh;
+}
+
 </style>
