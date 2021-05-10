@@ -12,7 +12,7 @@
        <div id="main">
          <h1>shopping page</h1>
         <b-row  v-for="(arr, index) in chunk" :key="index" class="mb-5 justify-content-md-center">
-          <b-col v-for="(data, index) in arr" :key="index" md>
+          <b-col cols="3" v-for="(data, index) in arr" :key="index" md>
           <router-link id="card" :to="{name:'details', params: {userId: data._id}}">
             <b-card :img-src="data.picture" :title="data.name" style="max-width: 15rem;">
               <b-card-text>

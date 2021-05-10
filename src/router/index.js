@@ -13,6 +13,7 @@ import adminRegister from '@/components/adminRegister'
 import adminPage from '@/components/adminPage'
 import adminProdukView from '@/components/adminProdukView'
 import userOrderHistory from '@/components/userOrderHistory'
+import userWishlist from '@/components/userWishlist'
 
 
 
@@ -86,6 +87,11 @@ export default new Router({
       path:'/account/order-history',
       name:'userOrderHistory',
       component: userOrderHistory
+    },
+    {
+      path: '/account/wishlist',
+      name: 'userWishlist',
+      component: userWishlist
     }
   ]
 })
