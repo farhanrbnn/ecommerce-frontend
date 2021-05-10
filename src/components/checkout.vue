@@ -156,7 +156,23 @@ export default {
 
     this.orders = localData
   },
+   watch: {
+    prov_id (value) {
+      this.getKota(value)
+    },
+    kota_id (value) {
+      this.getKecamatan(value)
+    }
+  },
   methods: {
+   getKota(value){
+      return axios.get('https://dev.farizdotid.com/api/daerahindonesia/kota?id_provinsi=' + value.id)
+      .then((res) => this.kota = res.data.kota_kabupaten )
+    },
+    getKecamatan (value) {
+      return axios.get('https://dev.farizdotid.com/api/daerahindonesia/kecamatan?id_kota=' + value.id)
+      .then((res) => this.kecamatan = res.data.kecamatan)
+    },
     post () {
       try {
         const storageItem = JSON.parse(localStorage.getItem('order'))
@@ -244,20 +260,6 @@ export default {
       return decodedJwt.id
 
     }
- }, 
- asyncComputed: {
-  kotaRegion: {
-    async get () {
-      return await axios.get('https://dev.farizdotid.com/api/daerahindonesia/kota?id_provinsi=' + this.prov_id.id)
-      .then((res) => this.kota = res.data.kota_kabupaten)
-    }
-  },
-  kecamatanRegion: {
-   async get () {
-      return await axios.get('https://dev.farizdotid.com/api/daerahindonesia/kecamatan?id_kota=' + this.kota_id.id)
-      .then((res) => this.kecamatan = res.data.kecamatan)
-    }
-  }
  }
 }
 
