@@ -2,6 +2,7 @@
   <div id="userWhislist">
     <header-web />
     <b-container>
+      <h5 v-if="wishlist.length == 0">Your wishlist is empty</h5>
     </b-container>
   </div>
 </template>
@@ -18,7 +19,6 @@ export default {
   data () {
     return {
       wishlist:''
-
     }
   },
   created () {

@@ -222,6 +222,9 @@ export default {
               showConfirmButton: false,
               timer: 1500
             })
+            .then(() => {
+              this.$router.push('/purchased-confirmed')
+            })
           } else {
             Swal.fire({
               title:'error',

@@ -2,8 +2,8 @@
 	<div id="orderHistory">
 		<headerWeb />	
 		<b-container class="mt-5">
-			<h3 class="no-items" v-if="orderData.length === 0">You're not order anything yet</h3>
       <h3 class="mb-5">Order History</h3>
+			<h3 class="no-items mt-5" v-if="orderData.length === 0">You're not order anything yet</h3>
 			<b-card v-if="orderData" v-for="(data, idx) in orderData" :key="idx">
 				<b-row v-if="data.item.length === 1" v-for="(item, idx) in data.item" :key="idx">
 					<b-col md="4">

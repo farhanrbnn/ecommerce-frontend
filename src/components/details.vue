@@ -6,14 +6,20 @@
         <b-col cols="12">
           <b-card>
             <b-row>
-              <b-col cols="6">
+              <b-col cols="4">
                 <img id="product-image" :src="datas.picture">
               </b-col>
-              <b-col cols="6">
+              <b-col cols="8">
                 <h3>{{datas.name}}</h3>
                 <b-row>
                    <h4 id="label" class="mr-3">price</h4>
                    <h4>Rp.{{datas.price}}</h4>
+                </b-row>
+                <b-row class="mt-3">
+                  <b-col cols="4">
+                    <label for="amount">Jumlah</label>
+                    <b-form-spinbutton id="amount" min="1" v-model="value" max="100"></b-form-spinbutton>
+                  </b-col>
                 </b-row>
               </b-col>
             </b-row>

@@ -14,6 +14,9 @@ import adminPage from '@/components/adminPage'
 import adminProdukView from '@/components/adminProdukView'
 import userOrderHistory from '@/components/userOrderHistory'
 import userWishlist from '@/components/userWishlist'
+import error404 from '@/components/error_page/404'
+import purchasedAccept from '@/components/purchasedAccept'
+
 
 
 
@@ -92,6 +95,16 @@ export default new Router({
       path: '/account/wishlist',
       name: 'userWishlist',
       component: userWishlist
+    },
+    {
+      path: '/error-page',
+      name: 'error404',
+      component: error404
+    },
+    {
+      path: '/purchased-confirmed',
+      name: 'purchasedAccept',
+      component: purchasedAccept
     }
   ]
 })
