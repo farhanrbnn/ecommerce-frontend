@@ -133,6 +133,7 @@ export default {
     DataService.get('user/address/'+this.jwtDecode)
     .then((res) => {
       this.userAddress = res.data.data
+      console.log(this.userAddress)
       this.show = false
     })
     .catch((err) => {
@@ -185,19 +186,22 @@ export default {
           total = storageItem[i].price
         }
 
-        const data = {
+        const orderData = {
           user:this.jwtDecode,
-          address: this.address,
           item:orderItem,
-          provinsi: this.prov_id.nama,
-          kota: this.kota_id.nama,
-          kecamatan: this.kec_id.nama,
-          kodePos: this.kodePos,
           total:this.grandTotal
         }
 
-        if(this.userAddress.length == 0){
-          DataService.post('user/address', data)
+        if(this.userAddress.length === 0){
+          const addressData = {
+            address: this.address,
+            provinsi: this.prov_id.nama,
+            kota: this.kota_id.nama,
+            kecamatan: this.kec_id.nama,
+            kodePos: this.kodePos
+          }
+          
+          DataService.post('user/address', addressData)
           .then((res) => {
             console.log('success')
           })
@@ -206,7 +210,7 @@ export default {
           })
         }
 
-        DataService.post('user/purchased', data)
+        DataService.post('user/purchased', orderData)
         .then((res) => {
           const response = res.data
 
