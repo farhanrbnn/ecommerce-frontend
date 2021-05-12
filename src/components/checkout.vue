@@ -179,11 +179,11 @@ export default {
         const storageItem = JSON.parse(localStorage.getItem('order'))
       
         let orderItem = []
-        let total = ''
-
+        let qtyOrder = []
+        
         for(let i = 0; i < storageItem.length; i++){
           orderItem.push(storageItem[i].id)
-          total = storageItem[i].price
+          qtyOrder.push(storageItem[i].quantity)
         }
 
         const orderData = {

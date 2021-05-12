@@ -12,6 +12,9 @@
 					<b-col md="8">
             <p class="text-left">order ID: {{data._id}}</p>
             <h5>{{item.name}}</h5>
+            <b-row class="mt-5">
+              <p>Rp. {{data.total}}</p>
+            </b-row>
 					</b-col>
 				</b-row>
 			</b-card>			
@@ -41,8 +44,7 @@ export default {
 
 		DataService.get(url)
 		.then((res) => {
-			const apiData = res.data.data
-			this.orderData = apiData
+			this.orderData = res.data.data
 		})
 		.catch((err) => {
 			console.log(err)
