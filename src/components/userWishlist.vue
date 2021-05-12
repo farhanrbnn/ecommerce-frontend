@@ -15,7 +15,7 @@
         </b-row>  
         <b-row>
           <b-col class="d-flex justify-content-end align-items-end">
-            <b-button class="mt-3" @click="goTo" variant="primary" >Go to product page</b-button>
+            <b-button class="mt-3" @click="goTo(data.item._id)" variant="primary" >Go to product page</b-button>
           </b-col>
         </b-row>    
       </b-card>
@@ -41,7 +41,7 @@ export default {
   created () {
     DataService.get('user/wishlist/'+this.jwtDecode)
     .then((res) => {
-      this.wishlist = res.data.data.wishlist
+      this.wishlist = res.data.data
       
       for(let i = 0; i < this.wishlist.length; i++){
         this.itemId = this.wishlist[i].item._id
@@ -53,8 +53,8 @@ export default {
 
   },
   methods: {
-    goTo () {
-      this.$router.push('/shop/'+this.itemId)
+    goTo (id) {
+      this.$router.push('/shop/'+id)
     }
   },
   computed: {
