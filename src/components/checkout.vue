@@ -187,13 +187,14 @@ export default {
         }
 
         const orderData = {
-          user:this.jwtDecode,
-          item:orderItem,
-          total:this.grandTotal
+          user: this.jwtDecode,
+          item: orderItem,
+          total: this.grandTotal
         }
 
         if(this.userAddress.length === 0){
           const addressData = {
+            user: this.jwtDecode,
             address: this.address,
             provinsi: this.prov_id.nama,
             kota: this.kota_id.nama,
@@ -204,6 +205,7 @@ export default {
           DataService.post('user/address', addressData)
           .then((res) => {
             console.log('success')
+
           })
           .catch((err) => {
             console.log(err)

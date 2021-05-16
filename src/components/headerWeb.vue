@@ -7,9 +7,8 @@
         <b-nav-item v-if="jwt"><router-link to="/cart"><b-img v-bind:src="require('@/assets/cart-logo.png')" fluid alt="Fluid image"></b-img></router-link></b-nav-item>
         <b-nav-item v-if="!jwt" v-show="true"><router-link to="/login"><p id="router">Login</p></router-link></b-nav-item>
          <b-nav-item-dropdown v-if="jwt" text="Account" right>
-          <b-dropdown-item href="#">Profile</b-dropdown-item>
-          <b-dropdown-item href="account/order-history">Order History</b-dropdown-item>
-          <b-dropdown-item href="account/wishlist">My Whistlist</b-dropdown-item>
+          <b-dropdown-item href="http://localhost:8080/account/order-history">Order History</b-dropdown-item>
+          <b-dropdown-item href="http://localhost:8080/account/wishlist">My Whistlist</b-dropdown-item>
           <b-dropdown-item href="#" @click="removeAuth">Logout</b-dropdown-item>
         </b-nav-item-dropdown>
       </b-navbar-nav>

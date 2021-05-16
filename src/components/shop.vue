@@ -2,6 +2,7 @@
   <div class="shop">
       <headerWeb />
      <b-container class="mt-5">
+      </b-overlay>
        <div id="sidenav">
         <h4>Category</h4>
         <b-form-select v-model="selected">
@@ -11,6 +12,8 @@
        </div>
        <div id="main">
          <h1>shopping page</h1>
+          <b-overlay v-if="this.datas == null" id="overlay" :show="show" :opacity="opacity" rounded="lg">
+          </b-overlay>
         <b-row  v-for="(arr, index) in chunk" :key="index" class="mb-5 justify-content-md-center">
           <b-col cols="3" v-for="(data, index) in arr" :key="index" md>
           <router-link id="card" :to="{name:'details', params: {userId: data._id}}">
@@ -41,7 +44,9 @@ export default {
     return {
       datas: null,
       category: null,
-      selected: null
+      selected: null,
+      opacity:0.85,
+      show:true
     }
   },
   created () {
@@ -59,6 +64,7 @@ export default {
         }
 
         this.datas = apiData
+        this.show = false
         this.category = categoryArr
       })
       .catch((err) => {
@@ -149,6 +155,10 @@ export default {
   font-size: 20px;
   margin-bottom: 0;
   color: white;
+}
+
+#overlay {
+  margin-top: 200px;
 }
 
 #brand {
