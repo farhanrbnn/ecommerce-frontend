@@ -61,6 +61,8 @@
           </div>
 
           <b-button class="mt-5" variant="primary" @click="post">Submit</b-button>
+          <b-button class="mt-5" variant="primary" @click="testing">test</b-button>
+
         </b-col>
         <b-col md="6">
           <h4 class="mb-4">ORDER SUMMARY</h4>
@@ -173,6 +175,27 @@ export default {
     getKecamatan (value) {
       return axios.get('https://dev.farizdotid.com/api/daerahindonesia/kecamatan?id_kota=' + value.id)
       .then((res) => this.kecamatan = res.data.kecamatan)
+    },
+    // TESTING ENDPOINT
+    testing () {
+      const storageItem = JSON.parse(localStorage.getItem('order'))
+      let orderItem = []
+
+      for(let i = 0; i < storageItem.length; i++){
+        orderItem.push(storageItem[i].id)
+      }
+
+      const testData = {
+        id: orderItem
+      }
+
+      DataService.post('items/update', testData)
+      .then((res) => {
+        console.log(res.data)
+      })
+      .catch((err) => {
+        console.log(err)
+      })
     },
     post () {
       try {

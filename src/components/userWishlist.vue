@@ -3,7 +3,7 @@
     <header-web />
     <b-container class="mt-5">
       <h3 class="mb-5">Wishlist</h3>
-      <b-img id="img" v-bind:src="require('@/assets/wishlist.svg')"></b-img>
+      <b-img id="img" v-if="wishlist.length == 0" v-bind:src="require('@/assets/wishlist.svg')"></b-img>
       <h3 class="mt-5" v-if="wishlist.length == 0">Your wishlist is empty</h3>
       <b-card v-if="wishlist" v-for="(data, idx) in wishlist" :key="idx">
         <b-row>
