@@ -20,6 +20,14 @@
                     <label for="amount">Jumlah</label>
                     <b-form-spinbutton id="amount" min="1" v-model="value" max="100"></b-form-spinbutton>
                   </b-col>
+                  <b-col cols="8" class="d-flex justify-content-end align-items-center">
+                    <p v-if="this.datas.quantity > 5">
+                      <strong>In-Stock</strong>
+                    </p>
+                    <p id="remainig-stock" v-if="this.datas.quantity <= 5">
+                      <strong>remaining stock < 5 ! </strong>
+                    </p>
+                  </b-col>
                 </b-row>
               </b-col>
             </b-row>
@@ -42,7 +50,7 @@
       </b-row>
       <b-row  class="d-flex justify-content-lg-center">
         <b-col v-for="(arr, index) in itemByCat" :key="index" v-if="itemByCat.length <= 4" cols="3">
-          <b-card :img-src="arr.picture" :title="arr.name">
+          <b-card @click="relatedClick(arr._id)" :img-src="arr.picture" :title="arr.name">
             <b-card-text>
               Rp. {{arr.price}}
             </b-card-text>
@@ -105,6 +113,7 @@ export default {
       .catch((err) => {
         alert('error when fetching API' + err)
       })
+
   },
   computed:{
     jwtDecode () {
@@ -245,5 +254,9 @@ export default {
 
 #label {
   color: #bbbfca;
+}
+
+#remaining-stock {
+  color: red;
 }
 </style>
