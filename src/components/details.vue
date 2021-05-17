@@ -24,8 +24,10 @@
                     <p v-if="this.datas.quantity > 5">
                       <strong>In-Stock</strong>
                     </p>
-                    <p id="remainig-stock" v-if="this.datas.quantity <= 5">
-                      <strong>remaining stock < 5 ! </strong>
+                    <p id="remaining-stock" v-if="this.datas.quantity <= 5">
+                      <strong>
+                        remaining stock < 5 !
+                      </strong>
                     </p>
                   </b-col>
                 </b-row>
@@ -259,4 +261,5 @@ export default {
 #remaining-stock {
   color: red;
 }
+
 </style>

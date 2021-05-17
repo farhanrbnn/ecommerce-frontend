@@ -1,6 +1,8 @@
 <template>
   <div id="userWhislist">
     <header-web />
+      <b-overlay :show="show" :opacity="opacity" rounded="sm">
+
     <b-container class="mt-5">
       <h3 class="mb-5">Wishlist</h3>
       <b-img id="img" v-if="wishlist.length == 0" v-bind:src="require('@/assets/wishlist.svg')"></b-img>
@@ -21,6 +23,7 @@
         </b-row>    
       </b-card>
     </b-container>
+      </b-overlay>
   </div>
 </template>
 
@@ -36,13 +39,16 @@ export default {
   data () {
     return {
       wishlist:'',
-      itemId: ''
+      itemId: '',
+      show: true,
+      opacity: 1
     }
   },
   created () {
     DataService.get('user/wishlist/'+this.jwtDecode)
     .then((res) => {
       this.wishlist = res.data.data
+      this.show = false
       
       for(let i = 0; i < this.wishlist.length; i++){
         this.itemId = this.wishlist[i].item._id
