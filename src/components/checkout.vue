@@ -59,10 +59,7 @@
               </div>
             </b-card>
           </div>
-
           <b-button class="mt-5" variant="primary" @click="post">Submit</b-button>
-          <b-button class="mt-5" variant="primary" @click="testing">test</b-button>
-
         </b-col>
         <b-col md="6">
           <h4 class="mb-4">ORDER SUMMARY</h4>
@@ -176,30 +173,9 @@ export default {
       return axios.get('https://dev.farizdotid.com/api/daerahindonesia/kecamatan?id_kota=' + value.id)
       .then((res) => this.kecamatan = res.data.kecamatan)
     },
-    // TESTING ENDPOINT
-    testing () {
-      const storageItem = JSON.parse(localStorage.getItem('order'))
-      let orderItem = []
-
-      for(let i = 0; i < storageItem.length; i++){
-        orderItem.push(storageItem[i].id)
-      }
-
-      const testData = {
-        id: orderItem
-      }
-
-      DataService.post('items/update', testData)
-      .then((res) => {
-        console.log(res.data)
-      })
-      .catch((err) => {
-        console.log(err)
-      })
-    },
-    post () {
+   async post () {
       try {
-        const storageItem = JSON.parse(localStorage.getItem('order'))
+        const storageItem = await JSON.parse(localStorage.getItem('order'))
       
         let orderItem = []
         let qtyOrder = []
@@ -212,6 +188,7 @@ export default {
         const orderData = {
           user: this.jwtDecode,
           item: orderItem,
+          quantity: qtyOrder,
           total: this.grandTotal
         }
 
@@ -225,7 +202,7 @@ export default {
             kodePos: this.kodePos
           }
           
-          DataService.post('user/address', addressData)
+          await DataService.post('user/address', addressData)
           .then((res) => {
             console.log('success')
 
@@ -235,7 +212,15 @@ export default {
           })
         }
 
-        DataService.post('user/purchased', orderData)
+        await DataService.post('items/update', orderData)
+        .then((res) => {
+          console.log('success')
+        })
+        .catch((err) => {
+          alert(err)
+        })
+
+        await DataService.post('user/purchased', orderData)
         .then((res) => {
           const response = res.data
 
