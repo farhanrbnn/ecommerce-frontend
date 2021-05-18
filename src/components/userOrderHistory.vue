@@ -4,7 +4,7 @@
   <b-overlay :show="show" :opacity="opacity" rounded="sm">
 		<b-container class="mt-5">
       <h3 class="mb-5">Order History</h3>
-      <b-img v-if="orderData.length === 0" id="img" v-bind:src="require('@/assets/order_history.svg')"></b-img>
+      <b-img v-if="showImg" id="img" v-bind:src="require('@/assets/order_history.svg')"></b-img>
 			<h3 class="no-items mt-5" v-if="showImg">You're not order anything yet</h3>
 			<b-card v-if="orderData" v-for="(data, idx) in orderData" :key="idx">
 				<b-row v-if="data.item.length === 1" v-for="(item, idx) in data.item" :key="idx">
