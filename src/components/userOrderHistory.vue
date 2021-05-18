@@ -1,11 +1,11 @@
 <template>
 	<div id="orderHistory">
 		<headerWeb />	
-		<b-container class="mt-5">
   <b-overlay :show="show" :opacity="opacity" rounded="sm">
+		<b-container class="mt-5">
       <h3 class="mb-5">Order History</h3>
       <b-img v-if="orderData.length === 0" id="img" v-bind:src="require('@/assets/order_history.svg')"></b-img>
-			<h3 class="no-items mt-5" v-if="orderData.length === 0">You're not order anything yet</h3>
+			<h3 class="no-items mt-5" v-if="showImg">You're not order anything yet</h3>
 			<b-card v-if="orderData" v-for="(data, idx) in orderData" :key="idx">
 				<b-row v-if="data.item.length === 1" v-for="(item, idx) in data.item" :key="idx">
 					<b-col md="4">
@@ -20,8 +20,8 @@
 					</b-col>
 				</b-row>
 			</b-card>			
-  </b-overlay>
 		</b-container>
+  </b-overlay>
 	</div>
 </template>
 
@@ -39,7 +39,8 @@ export default {
 		return {
 			orderData: '',
       opacity: 1,
-      show: true
+      show: true,
+      showImg: null
 		}
 	},
 	created() {
@@ -50,9 +51,17 @@ export default {
 		DataService.get(url)
 		.then((res) => {
 			this.orderData = res.data.data
-      if(this.orderData){
-        this.show = false
+
+      if(this.orderData.length > 1){
+        this.showImg = false
       }
+
+      if(this.orderData.length === 0){
+        this.showImg = true
+      }
+
+      this.show = false
+
 		})
 		.catch((err) => {
 			console.log(err)
