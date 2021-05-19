@@ -128,27 +128,38 @@ export default {
   },
   methods: {
     addWishlist () {
-      const data = {
-        item:this.userId,
-        user: this.jwtDecode
-      }
       const url = 'user/wishlist'
 
-      DataService.post(url, data)
-      .then((res) => {
-         this.$notify({
-            group: 'cart',
-            text: 'Success add item to wishlist',
-            type: 'success'
+      if(this.jwt){
+        const data = {
+          item:this.userId,
+          user: this.jwtDecode
+        }
+        
+        try {
+          DataService.post(url, data)
+          .then((res) => {
+             this.$notify({
+                group: 'cart',
+                text: 'Success add item to wishlist',
+                type: 'success'
+              })
           })
-      })
-      .catch((err) => {
-        this.$notify({
-            group: 'cart',
-            text: 'Failed add item to wishtlist',
-            type: 'warn'
+          .catch((err) => {
+            this.$notify({
+              group: 'cart',
+              text: 'Failed add item to wishtlist',
+              type: 'warn'
+            })
           })
-      })
+        } catch (err) {
+          console.log(err)
+        }
+
+      } else {
+        this.$router.push('/login')
+      }
+      
     },
     buyNow () {
       let priceInt = toInteger(this.datas.price)
