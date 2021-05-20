@@ -68,6 +68,8 @@ import DataService from '../urlApp/user'
 import regex from '../utils/regex'
 import toInteger from '../utils/toInteger'
 import orderUpdate from '../utils/orderUpdate'
+import Swal from 'sweetalert2'
+
 
 export default {
   name: 'details',
@@ -157,7 +159,16 @@ export default {
         }
 
       } else {
-        this.$router.push('/login')
+        Swal.fire({
+          title:'info',
+          text:'you need to login first',
+          icon:'info',
+          showConfirmButton: false,
+          timer: 1000
+        })
+        .then(() => {
+          this.$router.push('/login')
+        })
       }
       
     },
@@ -186,7 +197,16 @@ export default {
         this.$store.commit('addOrder', order)
         this.$router.push('/cart')
       } else {
-        this.$router.push('/login')
+        Swal.fire({
+          title:'info',
+          text:'you need to login first',
+          icon:'info',
+          showConfirmButton: false,
+          timer: 1000
+        })
+        .then(() => {
+          this.$router.push('/login')
+        })
       }
     },
     addToCart () {
@@ -225,7 +245,16 @@ export default {
           })
         }
       } else {
-        this.$router.push('/login')
+        Swal.fire({
+          title:'info',
+          text:'you need to login first',
+          icon:'info',
+          showConfirmButton: false,
+          timer: 1000
+        })
+        .then(() => {
+          this.$router.push('/login')
+        })
       }
     },
     authLogout () {
