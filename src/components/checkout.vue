@@ -97,6 +97,8 @@
 
 
 <script>
+/* eslint-disable */
+
 import headerWeb from '@/components/headerWeb'
 import axios from 'axios'
 import regex from '../utils/regex'

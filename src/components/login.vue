@@ -25,6 +25,8 @@
 </template>
 
 <script>
+/* eslint-disable */
+
 import headerWeb from '@/components/headerWeb'
 import DataService from '../urlApp/user'
 

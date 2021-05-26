@@ -14,6 +14,8 @@
 </template>
 
 <script>
+/* eslint-disable */
+
 import headerWeb from '@/components/headerWeb'
 
 export default {

@@ -1,3 +1,4 @@
+/* eslint-disable */
 <template>
   <div id="userWhislist">
     <header-web />
@@ -9,17 +10,17 @@
           <b-card v-if="wishlist" v-for="(data, idx) in wishlist" :key="idx">
             <b-row>
               <b-col md="4">
-                <b-card-img id="picture":src="data.item.picture" alt="Image" class="rounded-0"></b-card-img>
+                <b-card-img id="picture" :src="data.item.picture" alt="Image" class="rounded-0"></b-card-img>
               </b-col>
               <b-col class="d-flex justify-content-start">
                 <h5>{{data.item.name}}</h5>
               </b-col>
-            </b-row>  
+            </b-row>
             <b-row>
               <b-col class="d-flex justify-content-end align-items-end">
                 <b-button class="mt-3" @click="goTo(data.item._id)" variant="primary" >Go to product page</b-button>
               </b-col>
-            </b-row>    
+            </b-row>
          </b-card>
        </b-container>
       </b-overlay>
@@ -27,6 +28,8 @@
 </template>
 
 <script>
+/* eslint-disable */
+
 import headerWeb from '@/components/headerWeb'
 import DataService from '../urlApp/user'
 

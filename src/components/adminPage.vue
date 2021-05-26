@@ -84,6 +84,8 @@
 </template>
 
 <script>
+/* eslint-disable */
+
 import DataService from '../urlApp/admin'
 
 export default {

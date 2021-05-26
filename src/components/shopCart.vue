@@ -31,6 +31,8 @@
 </template>
 
 <script>
+/* eslint-disable */
+
 import headerWeb from '@/components/headerWeb'
 import regex from '../utils/regex'
 import grandTotal from '../utils/grandTotal'

@@ -23,6 +23,8 @@
 </template>
 
 <script>
+/* eslint-disable */
+
 import DataService from '../urlApp/user'
 
 export default {

@@ -40,6 +40,8 @@
 </template>
 
 <script>
+/* eslint-disable */
+
 import adminService from '../urlApp/admin'
 export default {
   name: 'adminProdukView',

@@ -31,6 +31,12 @@
                     </p>
                   </b-col>
                 </b-row>
+                <b-row class="mt-3 mb-3">
+                  <b-col>
+                    <h5>description</h5>
+                    <p>{{datas.description}}</p>
+                  </b-col>
+                </b-row>
               </b-col>
             </b-row>
             <b-row>
@@ -39,7 +45,7 @@
                   <b-icon icon="heart-fill"></b-icon>
                 </b-button>
                 <b-button class="mt-3" @click="addToCart" variant="primary" >Add to Cart</b-button>
-                <b-button class="mt-3" @click="buyNow"  variant="primary">Buy Now</b-button>       
+                <b-button class="mt-3" @click="buyNow"  variant="primary">Buy Now</b-button>
               </b-col>
             </b-row>
           </b-card>
@@ -63,6 +69,8 @@
    </div>
 </template>
 <script>
+/* eslint-disable */
+
 import headerWeb from '@/components/headerWeb'
 import DataService from '../urlApp/user'
 import regex from '../utils/regex'

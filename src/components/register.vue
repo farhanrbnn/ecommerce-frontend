@@ -34,6 +34,8 @@
 </template>
 
 <script>
+/* eslint-disable */
+
 import headerWeb from '@/components/headerWeb'
 import DataService from '../urlApp/user'
 
@@ -93,9 +95,12 @@ export default {
         password: this.password,
         confirmPassword: this.confirmPassword
       }
-      
+
+      console.log(data)
+
       DataService.post('user/register', data)
         .then((res) => {
+          console.log(res.data)
           if (res.data.status === '400') {
             this.email = ''
             this.password = ''
