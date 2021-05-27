@@ -18,7 +18,8 @@
             </b-row>
             <b-row>
               <b-col class="d-flex justify-content-end align-items-end">
-                <b-button class="mt-3" @click="goTo(data.item._id)" variant="primary" >Go to product page</b-button>
+                <b-button class="mt-3 mr-1" @click="goTo(data.item._id)" variant="primary" >Go to product page</b-button>
+                <b-button class="mt-3 ml-1" @click="deleteWishlist(data.item._id)" variant="danger" >Delete</b-button>
               </b-col>
             </b-row>
          </b-card>
@@ -76,6 +77,9 @@ export default {
   methods: {
     goTo (id) {
       this.$router.push('/shop/'+id)
+    },
+    deleteWishlist(id) {
+      console.log(id)
     }
   },
   computed: {
