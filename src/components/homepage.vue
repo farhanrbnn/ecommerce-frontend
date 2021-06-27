@@ -34,6 +34,8 @@
 import headerWeb from '@/components/headerWeb'
 import DataService from '../urlApp/user'
 import regex from '../utils/regex'
+import io from "socket.io-client";
+var socket = io.connect("http://localhost:5000");
 
 export default {
   name: 'homepage',
@@ -49,6 +51,9 @@ export default {
     }
   },
   created () {
+    socket.on('testdata', (data) => {
+      console.log(data)
+    })
     DataService.get('/items')
       .then((res) => {
         let apiData = res.data.data

@@ -69,7 +69,7 @@
               <b-col sm="6">
                 <p>product</p>
                 <div v-if="orders" v-for="(data, idx) in orders" :key="idx">
-                  <p>{{data.product}}</p>
+                  <p>{{data.item.name}}</p>
                 </div>
                 <div class="mt-3">
                   <h5>Grand Total :  </h5>
@@ -78,7 +78,7 @@
               <b-col sm="6">
                 <p>subtotal</p>
                 <div v-if="orders" v-for="(data, idx) in orders" :key="idx">
-                <p> Rp.{{data.subTotal}} </p>
+                <p> Rp.{{data.subtotal}} </p>
                 </div>
                 <div class="mt-3">
                   <h5> Rp. {{grandTotal}} </h5>
@@ -134,7 +134,6 @@ export default {
     DataService.get('user/address/'+this.jwtDecode)
     .then((res) => {
       this.userAddress = res.data.data
-      console.log(this.userAddress)
       this.show = false
     })
     .catch((err) => {
@@ -149,14 +148,31 @@ export default {
         console.log(err)
       })
 
-    let localData = JSON.parse(localStorage.getItem('order'))
+    DataService.get('user/cart/'+this.jwtDecode)
+    .then((res) => {
+      let data = res.data.data
 
-    for (let i = 0; i < localData.length; i++) {
-      let subTotalRegex = regex(localData[i].subTotal)
-      localData[i].subTotal = subTotalRegex
-    }
+      for(let i = 0; i < data.length; i++){
+        let subTotalRegex = regex(data[i].subtotal)
+        data[i].subtotal = subTotalRegex
 
-    this.orders = localData
+      }
+      this.orders = data
+
+      console.log('ORDER',this.orders)
+    })
+    .catch((err) => {
+      console.log(err)
+    })
+
+    // let localData = JSON.parse(localStorage.getItem('order'))
+
+    // for (let i = 0; i < localData.length; i++) {
+    //   let subTotalRegex = regex(localData[i].subTotal)
+    //   localData[i].subTotal = subTotalRegex
+    // }
+
+    // this.orders = localData
   },
    watch: {
     prov_id (value) {
@@ -177,14 +193,15 @@ export default {
     },
    async post () {
       try {
-        const storageItem = await JSON.parse(localStorage.getItem('order'))
+        const purchasedData = this.orders
+        // const storageItem = await JSON.parse(localStorage.getItem('order'))
       
         let orderItem = []
         let qtyOrder = []
         
-        for(let i = 0; i < storageItem.length; i++){
-          orderItem.push(storageItem[i].id)
-          qtyOrder.push(storageItem[i].quantity)
+        for(let i = 0; i < purchasedData.length; i++){
+          orderItem.push(purchasedData[i].item.id)
+          qtyOrder.push(purchasedData[i].quantity)
         }
 
         const orderData = {
@@ -194,6 +211,7 @@ export default {
           total: this.grandTotal
         }
 
+        console.log('ORDER DATA:::',orderData)
         if(this.userAddress.length === 0){
           const addressData = {
             user: this.jwtDecode,
@@ -265,7 +283,7 @@ export default {
       let arrSubtotal = []
 
       for (let i = 0; i < orderData.length; i++) {
-        let subTotalInt = toInteger(orderData[i].subTotal)
+        let subTotalInt = toInteger(orderData[i].subtotal)
         arrSubtotal.push(subTotalInt)
       }
 

@@ -44,7 +44,7 @@
                 <b-button size="md" @click="addWishlist" variant="danger" class="mt-3">
                   <b-icon icon="heart-fill"></b-icon>
                 </b-button>
-                <b-button class="mt-3" @click="addToCart" variant="primary" >Add to Cart</b-button>
+                <b-button class="mt-3" @click="testAddCart" variant="primary" >Add to Cart</b-button>
                 <b-button class="mt-3" @click="buyNow"  variant="primary">Buy Now</b-button>
               </b-col>
             </b-row>
@@ -216,6 +216,44 @@ export default {
           this.$router.push('/login')
         })
       }
+    },
+    testAddCart () {
+      let priceInt = toInteger(this.datas.price)
+      let total = this.value * priceInt
+
+      const data = {
+        itemid: this.userId,
+        quantity: this.value,
+        subtotal: total,
+        user: this.jwtDecode
+      }
+      
+      DataService.post('user/cart', data)
+      .then((res) => {
+        const msg = res.data.message
+
+        if(msg){
+          this.$notify({
+            group: 'cart',
+            text: 'success add item to cart',
+            type: 'success'
+          })
+        } else {
+          this.$notify({
+            group: 'cart',
+            text: 'failed add item to cart',
+            type: 'warn'
+          })
+        }
+      })
+      .catch((err) => {
+        this.$notify({
+            group: 'cart',
+            text: err,
+            type: 'warn'
+          })
+      })
+
     },
     addToCart () {
       let priceInt = toInteger(this.datas.price)

@@ -6,19 +6,19 @@
         <b-card v-if="orders" v-for="(data, idx) in orders" :key="idx">
           <b-row>
             <b-col md="4">
-              <b-card-img id="product-image" :src="data.picture" alt="Image" class="rounded-0"></b-card-img>
+              <b-card-img id="product-image" :src="data.item.picture" alt="Image" class="rounded-0"></b-card-img>
             </b-col>
             <b-col md="8">
                <b-card-body>
                  <b-card-text>
                    <div class="float-left">
-                     <h5>{{data.product}}</h5>
-                     <h5>{{data.quantity}} X Rp. {{data.price}}</h5>
-                     <h5 class="mt-4">Subtotal: Rp. {{data.subTotal}}</h5>
+                     <h5>{{data.item.name}}</h5>
+                     <h5>{{data.quantity}} X Rp. {{data.item.price}}</h5>
+                     <h5 class="mt-4">Subtotal: Rp. {{data.subtotal}}</h5>
                     </div>
                   </b-card-text>
                </b-card-body>
-              <b-button @click="deleteOrder(idx)" class="float-right mt-5 mr-3" variant="danger" >Delete</b-button>
+              <b-button @click="testDelete(data._id)" class="float-right mt-5 mr-3" variant="danger" >Delete</b-button>
            </b-col>
          </b-row>
         </b-card>
@@ -37,6 +37,7 @@ import headerWeb from '@/components/headerWeb'
 import regex from '../utils/regex'
 import grandTotal from '../utils/grandTotal'
 import toInteger from '../utils/toInteger'
+import DataService from '../urlApp/user'
 
 export default {
   name: 'shopCart',
@@ -45,26 +46,67 @@ export default {
   },
   data () {
     return {
-      orders: null,
+      orders: [],
+      jwt: null,
       value: 0
     }
   },
-  created () {
+  created () {   
     let localData = this.$store.state.order
     let total = []
 
-    for (let i = 0; i < localData.length; i++) {
-      let priceRegex = regex(localData[i].subTotal)
-      total.push(localData[i].subTotal)
+    DataService.get('user/cart/' + this.jwtDecode)
+    .then((res) => {
+      const data = res.data.data
 
-      // change int to regexed subTotal
-      localData[i].subTotal = priceRegex
-    }
+      for(let i = 0; i < data.length; i++){
+        const priceRegex = regex(data[i].item.price)
+        const subRegex  = regex(data[i].subtotal)
 
-    this.grand = total
-    this.orders = localData
+        data[i].item.price = priceRegex
+        data[i].subtotal = subRegex
+        this.orders = data
+      }
+
+      console.log(this.orders)
+    })
+    .catch((err) => {
+      console.log(err)
+    })
   },
   methods: {
+    async testDelete(id){
+      const userId = {
+        id: await this.jwtDecode,
+        cartId: id
+      }
+
+      await DataService.post('user/cart/delete', userId)
+      .then((res) => {
+        console.log(res.data)
+      })
+      .catch((err) => {
+        console.log(err)
+      })
+
+      await DataService.get('user/cart/' + this.jwtDecode)
+      .then((res) => {
+        const data = res.data.data
+
+        for(let i = 0; i < data.length; i++){
+          const priceRegex = regex(data[i].item.price)
+          const subRegex  = regex(data[i].subtotal)
+
+          data[i].item.price = priceRegex
+          data[i].subtotal = subRegex
+          this.orders = data
+        }
+      })
+      .catch((err) => {
+        console.log(err)
+      })
+
+    },
     deleteOrder (index) {
       let orderData = this.orders
 
@@ -80,12 +122,19 @@ export default {
       let arrSubtotal = []
 
       for (let i = 0; i < orderData.length; i++) {
-        let subTotalInt = toInteger(orderData[i].subTotal)
+        let subTotalInt = toInteger(orderData[i].subtotal)
         arrSubtotal.push(subTotalInt)
       }
 
       let sumTotal = regex(grandTotal(arrSubtotal, 'sum'))
       return sumTotal
+    },
+     jwtDecode () {
+      const jwt = this.$cookies.get('jwt')
+
+      const decodedJwt = JSON.parse(atob(jwt.split('.')[1]))
+
+      return decodedJwt.id
     }
   }
 }

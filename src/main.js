@@ -10,6 +10,8 @@ import AsyncComputed from 'vue-async-computed'
 import 'bootstrap/dist/css/bootstrap.css'
 import 'bootstrap-vue/dist/bootstrap-vue.css'
 import VueCookie from 'vue-cookies'
+import socketio from 'socket.io'
+import VueSocketIO from 'vue-socket.io'
 
 Vue.config.productionTip = false
 Vue.use(BootstrapVue)

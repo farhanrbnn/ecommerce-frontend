@@ -10,16 +10,16 @@
           <b-card v-if="wishlist" v-for="(data, idx) in wishlist" :key="idx">
             <b-row>
               <b-col md="4">
-                <b-card-img id="picture" :src="data.item.picture" alt="Image" class="rounded-0"></b-card-img>
+                <b-card-img id="picture" :src="data.picture" alt="Image" class="rounded-0"></b-card-img>
               </b-col>
               <b-col class="d-flex justify-content-start">
-                <h5>{{data.item.name}}</h5>
+                <h5>{{data.name}}</h5>
               </b-col>
             </b-row>
             <b-row>
               <b-col class="d-flex justify-content-end align-items-end">
-                <b-button class="mt-3 mr-1" @click="goTo(data.item._id)" variant="primary" >Go to product page</b-button>
-                <b-button class="mt-3 ml-1" @click="deleteWishlist(data.item._id)" variant="danger" >Delete</b-button>
+                <b-button class="mt-3 mr-1" @click="goTo(data._id)" variant="primary" >Go to product page</b-button>
+                <b-button class="mt-3 ml-1" @click="deleteWishlist(data._id)" variant="danger" >Delete</b-button>
               </b-col>
             </b-row>
          </b-card>
@@ -52,6 +52,7 @@ export default {
     DataService.get('user/wishlist/'+this.jwtDecode)
     .then((res) => {
       this.wishlist = res.data.data
+      console.log(res.data.data)
 
       // show illustration image
       if (this.wishlist.length > 1) {

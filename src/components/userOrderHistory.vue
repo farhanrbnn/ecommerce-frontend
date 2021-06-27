@@ -53,6 +53,7 @@ export default {
 		DataService.get(url)
 		.then((res) => {
 			this.orderData = res.data.data
+			console.log(this.orderData)
 
       if(this.orderData.length > 1){
         this.showImg = false
