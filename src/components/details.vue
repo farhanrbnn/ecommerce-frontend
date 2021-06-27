@@ -221,39 +221,51 @@ export default {
       let priceInt = toInteger(this.datas.price)
       let total = this.value * priceInt
 
-      const data = {
-        itemid: this.userId,
-        quantity: this.value,
-        subtotal: total,
-        user: this.jwtDecode
-      }
-      
-      DataService.post('user/cart', data)
-      .then((res) => {
-        const msg = res.data.message
-
-        if(msg){
-          this.$notify({
-            group: 'cart',
-            text: 'success add item to cart',
-            type: 'success'
-          })
-        } else {
-          this.$notify({
-            group: 'cart',
-            text: 'failed add item to cart',
-            type: 'warn'
-          })
+      if(this.jwt){
+        const data = {
+          itemid: this.userId,
+          quantity: this.value,
+          subtotal: total,
+          user: this.jwtDecode
         }
-      })
-      .catch((err) => {
-        this.$notify({
+
+        DataService.post('user/cart', data)
+        .then((res) => {
+          const msg = res.data.message
+
+          if(msg){
+            this.$notify({
+              group: 'cart',
+              text: 'success add item to cart',
+              type: 'success'
+            })
+          } else {
+            this.$notify({
+              group: 'cart',
+              text: 'failed add item to cart',
+              type: 'warn'
+            })
+          }
+        })
+        .catch((err) => {
+          this.$notify({
             group: 'cart',
             text: err,
             type: 'warn'
           })
-      })
-
+        })
+      }else{
+        Swal.fire({
+          title:'info',
+          text:'you need to login first',
+          icon:'info',
+          showConfirmButton: false,
+          timer: 1000
+        })
+        .then(() => {
+          this.$router.push('/login')
+        })
+      }
     },
     addToCart () {
       let priceInt = toInteger(this.datas.price)

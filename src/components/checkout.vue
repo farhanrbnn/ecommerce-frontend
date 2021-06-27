@@ -164,15 +164,7 @@ export default {
     .catch((err) => {
       console.log(err)
     })
-
-    // let localData = JSON.parse(localStorage.getItem('order'))
-
-    // for (let i = 0; i < localData.length; i++) {
-    //   let subTotalRegex = regex(localData[i].subTotal)
-    //   localData[i].subTotal = subTotalRegex
-    // }
-
-    // this.orders = localData
+    
   },
    watch: {
     prov_id (value) {
@@ -195,12 +187,13 @@ export default {
       try {
         const purchasedData = this.orders
         // const storageItem = await JSON.parse(localStorage.getItem('order'))
+
       
         let orderItem = []
         let qtyOrder = []
         
         for(let i = 0; i < purchasedData.length; i++){
-          orderItem.push(purchasedData[i].item.id)
+          orderItem.push(purchasedData[i].item._id)
           qtyOrder.push(purchasedData[i].quantity)
         }
 
@@ -211,7 +204,6 @@ export default {
           total: this.grandTotal
         }
 
-        console.log('ORDER DATA:::',orderData)
         if(this.userAddress.length === 0){
           const addressData = {
             user: this.jwtDecode,
