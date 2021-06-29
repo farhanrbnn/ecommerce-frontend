@@ -193,17 +193,42 @@ export default {
         subTotal: total
       }
 
-      let orderData = JSON.parse(localStorage.getItem('order'))
-
       if (this.jwt) {
-        if (orderData) {
-          orderUpdate(order, orderData)
-
-          const parse = JSON.stringify(orderData)
-          localStorage.setItem('order', parse)
+        const data = {
+          itemid: this.userId,
+          quantity: this.value,
+          subtotal: total,
+          user: this.jwtDecode
         }
-        this.$store.commit('addOrder', order)
-        this.$router.push('/cart')
+
+        DataService.post('user/cart', data)
+        .then((res) => {
+          const msg = res.data.message
+
+          if(msg){
+            this.$notify({
+              group: 'cart',
+              text: 'success add item to cart',
+              type: 'success'
+            })
+            
+            this.$router.push('/cart')
+          } else {
+            this.$notify({
+              group: 'cart',
+              text: 'failed add item to cart',
+              type: 'warn'
+            })
+          }
+        })
+        .catch((err) => {
+          this.$notify({
+            group: 'cart',
+            text: err,
+            type: 'warn'
+          })
+        })
+      
       } else {
         Swal.fire({
           title:'info',

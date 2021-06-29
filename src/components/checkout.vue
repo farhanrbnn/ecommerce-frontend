@@ -190,6 +190,7 @@ export default {
 
       
         let orderItem = []
+        let deleteCartId = ''
         let qtyOrder = []
         
         for(let i = 0; i < purchasedData.length; i++){
