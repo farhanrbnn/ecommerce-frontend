@@ -106,14 +106,6 @@ export default {
         console.log(err)
       })
 
-    },
-    deleteOrder (index) {
-      let orderData = this.orders
-
-      orderData.splice(index, 1)
-      const parse = JSON.stringify(orderData)
-
-      localStorage.setItem('order', parse)
     }
   },
   computed: {

@@ -79,8 +79,44 @@ export default {
     goTo (id) {
       this.$router.push('/shop/'+id)
     },
-    deleteWishlist(id) {
-      console.log(id)
+    async deleteWishlist(id) {
+      const data = {
+        userId: this.jwtDecode,
+        cartId: id
+      }
+
+     await DataService.post('user/wishlist/delete', data)
+      .then((res) => {
+        console.log(res.data)
+      })
+      .catch((err) => {
+        console.log(err)
+      })
+
+      await  DataService.get('user/wishlist/'+this.jwtDecode)
+      .then((res) => {
+        this.wishlist = res.data.data
+        
+        if (this.wishlist.length > 1) {
+          this.showImg = false      
+        }
+
+        if (this.wishlist.length === 0) {
+          this.showImg = true
+        }
+
+        // loading
+        this.show = false
+
+        // show illustration image
+        for(let i = 0; i < this.wishlist.length; i++){
+          this.itemId = this.wishlist[i]._id
+        }
+      })
+      .catch((err) => {
+        console.log(err)
+      })
+      
     }
   },
   computed: {
