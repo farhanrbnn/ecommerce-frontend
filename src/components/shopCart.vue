@@ -1,7 +1,9 @@
 <template>
   <div class="shopCart">
-    <headerWeb />
+    <headerWeb />  
+    <b-overlay :show="show" :opacity="opacity" rounded="sm">
      <b-container class="mt-5">
+      <b-img id="img" v-if="showImg" v-bind:src="require('@/assets/cart.svg')"></b-img>
       <h3 class="no-items" v-if="orders.length === 0">Your cart is empty</h3>
         <b-card v-if="orders" v-for="(data, idx) in orders" :key="idx">
           <b-row>
@@ -27,6 +29,7 @@
           <b-button v-if="orders.length" class="float-right mt-5" variant="primary" >Checkout</b-button>
         </router-link>
      </b-container>
+      </b-overlay>
   </div>
 </template>
 
@@ -48,6 +51,8 @@ export default {
     return {
       orders: [],
       jwt: null,
+      showImg: null,
+      show: true,
       value: 0
     }
   },
@@ -57,6 +62,7 @@ export default {
 
     DataService.get('user/cart/' + this.jwtDecode)
     .then((res) => {
+      this.show = false
       const data = res.data.data
 
       for(let i = 0; i < data.length; i++){
@@ -66,6 +72,14 @@ export default {
         data[i].item.price = priceRegex
         data[i].subtotal = subRegex
         this.orders = data
+      }
+
+      if (this.orders.length > 0) {
+        this.showImg = false      
+      }
+
+      if (this.orders.length === 0) {
+        this.showImg = true
       }
 
       console.log(this.orders)
@@ -91,6 +105,7 @@ export default {
 
       await DataService.get('user/cart/' + this.jwtDecode)
       .then((res) => {
+        this.show = false
         const data = res.data.data
 
         for(let i = 0; i < data.length; i++){
@@ -100,6 +115,15 @@ export default {
           data[i].item.price = priceRegex
           data[i].subtotal = subRegex
           this.orders = data
+
+          if (this.orders.length > 0) {
+            this.showImg = false      
+          }
+
+          if (this.orders.length === 0) {
+            this.showImg = true
+          }
+
           console.log(this.orders)
         }
       })
@@ -138,7 +162,7 @@ export default {
 @import url('https://fonts.googleapis.com/css2?family=Krona+One&display=swap');
 
 .no-items {
-  margin-top: 200px;
+  margin-top: 100px;
 }
 
 #brand {
@@ -155,4 +179,10 @@ export default {
   width: 150px;
   height: 150px;
 }
+
+#img {
+  margin-top: 20px;
+  width: 500px;
+}
+
 </style>
