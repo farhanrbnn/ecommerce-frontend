@@ -159,7 +159,6 @@ export default {
       }
       this.orders = data
 
-      console.log('ORDER',this.orders)
     })
     .catch((err) => {
       console.log(err)
@@ -186,12 +185,11 @@ export default {
    async post () {
       try {
         const purchasedData = this.orders
-        // const storageItem = await JSON.parse(localStorage.getItem('order'))
-
-      
         let orderItem = []
         let deleteCartId = ''
         let qtyOrder = []
+
+        const test = this.jwtDecode
         
         for(let i = 0; i < purchasedData.length; i++){
           orderItem.push(purchasedData[i].item._id)
@@ -263,17 +261,8 @@ export default {
           console.log(err)
         })
 
-        await DataService.post('user/cart/delete', orderData.item)
-        .then((res) => {
-          console.log(res.data)
-        })
-        .catch((err) => {
-          console.log(err)
-        })
-
       } catch (err) {
         console.log(err)
-
       }
     }
 

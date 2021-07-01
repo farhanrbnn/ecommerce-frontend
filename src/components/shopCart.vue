@@ -18,7 +18,7 @@
                     </div>
                   </b-card-text>
                </b-card-body>
-              <b-button @click="testDelete(data._id)" class="float-right mt-5 mr-3" variant="danger" >Delete</b-button>
+              <b-button @click="deleteCart(data._id)" class="float-right mt-5 mr-3" variant="danger" >Delete</b-button>
            </b-col>
          </b-row>
         </b-card>
@@ -75,13 +75,13 @@ export default {
     })
   },
   methods: {
-    async testDelete(id){
+    async deleteCart(id){
       const userId = {
         id: await this.jwtDecode,
         cartId: id
       }
 
-      await DataService.post('user/cart/delete', userId)
+      await DataService.post('user/cart/update', userId)
       .then((res) => {
         console.log(res.data)
       })
@@ -100,6 +100,7 @@ export default {
           data[i].item.price = priceRegex
           data[i].subtotal = subRegex
           this.orders = data
+          console.log(this.orders)
         }
       })
       .catch((err) => {
