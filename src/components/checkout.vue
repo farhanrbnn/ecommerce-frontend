@@ -158,6 +158,7 @@ export default {
 
       }
       this.orders = data
+      console.log(this.orders)
 
     })
     .catch((err) => {
@@ -186,14 +187,21 @@ export default {
       try {
         const purchasedData = this.orders
         let orderItem = []
+        let cartId = []
         let deleteCartId = ''
         let qtyOrder = []
 
         const test = this.jwtDecode
-        
+      
         for(let i = 0; i < purchasedData.length; i++){
           orderItem.push(purchasedData[i].item._id)
           qtyOrder.push(purchasedData[i].quantity)
+          cartId.push(purchasedData[i]._id)
+        }
+
+        const deleteAllCart = {
+          id: await this.jwtDecode,
+          cartId: cartId
         }
 
         const orderData = {
@@ -231,6 +239,14 @@ export default {
           alert(err)
         })
 
+        await DataService.put('user/cart/update?deleteAll=true', deleteAllCart)
+        .then((res) => {
+          console.log('success')
+        })
+        .catch((err) => {
+          alert(err)
+        })
+
         await DataService.post('user/purchased', orderData)
         .then((res) => {
           const response = res.data
@@ -241,7 +257,7 @@ export default {
               text:'your order has been checkout !',
               icon:'success',
               showConfirmButton: false,
-              timer: 1500
+              timer: 1500 
             })
             .then(() => {
               this.$router.push('/purchased-confirmed')
@@ -256,7 +272,7 @@ export default {
             })            
           }
 
-        })
+        }) 
         .catch((err) => {
           console.log(err)
         })

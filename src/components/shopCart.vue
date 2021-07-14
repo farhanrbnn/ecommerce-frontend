@@ -95,7 +95,7 @@ export default {
         cartId: id
       }
 
-      await DataService.post('user/cart/update', userId)
+      await DataService.put('user/cart/update', userId)
       .then((res) => {
         console.log(res.data)
       })
