@@ -114,18 +114,21 @@ export default {
 
           data[i].item.price = priceRegex
           data[i].subtotal = subRegex
-          this.orders = data
-
-          if (this.orders.length > 0) {
-            this.showImg = false      
-          }
-
-          if (this.orders.length === 0) {
-            this.showImg = true
-          }
 
           console.log(this.orders)
         }
+
+        this.orders = data
+        
+        if (this.orders.length > 0) {
+          this.showImg = false      
+        }
+
+        if (this.orders.length === 0) {
+          this.showImg = true
+        }
+
+
       })
       .catch((err) => {
         console.log(err)
