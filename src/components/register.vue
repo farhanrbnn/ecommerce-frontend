@@ -19,7 +19,8 @@
           <b-form-select id="input-4" v-model="selected" :options="options"></b-form-select>
         </b-form-group>
         <b-form-group id="input-group-5" label="Password" label-for="input-5">
-         <b-form-input id="input-5" type="password" placeholder="password" v-model="password" autocomplete="off" required></b-form-input>
+         <b-form-input id="input-5" :type="type" placeholder="password" v-model="password" autocomplete="off" required></b-form-input>
+          <font-awesome-icon class="eye-icon" @click="toggleIcon" :icon="icon" />
         </b-form-group>
         <b-form-group id="input-group-6" label="re-enter password" label-for="input-6">
           <b-form-input id="input-6" type="password" placeholder="re-enter password" v-model="confirmPassword" autocomplete="off" required></b-form-input>
@@ -52,6 +53,8 @@ export default {
       password: '',
       confirmPassword: '',
       selected:null,
+      type: 'password',
+      icon: 'eye',
       options:[
         {value:'male', text:'male'},
         {value:'female', text:'female'}
@@ -84,6 +87,15 @@ export default {
         this.msg['password'] = "password doesn't match"
       } else {
         this.msg['password'] = ''
+      }
+    },
+    toggleIcon() {
+      if (this.type === 'password'){
+        this.type = 'text'
+        this.icon = 'eye-slash'
+      } else {
+        this.type = 'password'
+        this.icon = 'eye'
       }
     },
     postData () {
@@ -136,6 +148,15 @@ export default {
 }
 .error {
   color:red;
+}
+
+.eye-icon {
+   float: right;
+  margin-top: -30px;
+  margin-right: 10px;
+  position: relative;
+  z-index: 1;
+  cursor:pointer;
 }
 
 </style>
