@@ -19,6 +19,18 @@
             </b-row>
 					</b-col>
 				</b-row>
+        <b-row v-if="data.item.length > 1" v-for="(item, idx) in data.item" :key="idx">
+          <b-col md="4">
+						<b-card-img id="product-image" :src="item.picture" alt="Image" class="rounded-0"  style="max-width: 10rem; height: auto;"></b-card-img>
+          </b-col>
+          <b-col md="8" class="mt-3">
+            <p class="text-left">order ID: {{data._id}}</p>
+            <h5>{{item.name}}</h5>
+            <b-row class="mt-5">
+              <p>Rp. {{data.total}}</p>
+            </b-row>
+					</b-col>
+        </b-row>
 			</b-card>			
 		</b-container>
   </b-overlay>

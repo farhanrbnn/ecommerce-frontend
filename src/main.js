@@ -7,18 +7,24 @@ import store from './store'
 import {BootstrapVue, BootstrapVueIcons} from 'bootstrap-vue'
 import Notifications from 'vue-notification'
 import AsyncComputed from 'vue-async-computed'
+import VueCookie from 'vue-cookies'
+import { library } from '@fortawesome/fontawesome-svg-core'
+import { faEye, faEyeSlash } from '@fortawesome/free-solid-svg-icons'
+import { FontAwesomeIcon } from '@fortawesome/vue-fontawesome'
 import 'bootstrap/dist/css/bootstrap.css'
 import 'bootstrap-vue/dist/bootstrap-vue.css'
-import VueCookie from 'vue-cookies'
-import socketio from 'socket.io'
-import VueSocketIO from 'vue-socket.io'
+
+library.add(faEye)
+library.add(faEyeSlash)
+
 
 Vue.config.productionTip = false
 Vue.use(BootstrapVue)
 Vue.use(VueCookie)
 Vue.use(Notifications)
-Vue.use(AsyncComputed)
 Vue.use(BootstrapVueIcons)
+
+Vue.component('font-awesome-icon', FontAwesomeIcon)
 
 
 /* eslint-disable no-new */

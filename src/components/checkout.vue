@@ -59,7 +59,6 @@
               </div>
             </b-card>
           </div>
-          <b-button class="mt-5" variant="primary" @click="post">Submit</b-button>
         </b-col>
         <b-col md="6">
           <h4 class="mb-4">ORDER SUMMARY</h4>
@@ -87,6 +86,11 @@
             </b-row>
           </div>
           </div>
+        </b-col>
+      </b-row>
+      <b-row>
+        <b-col>
+          <b-button class="mt-5" variant="primary" @click="post">Submit</b-button>
         </b-col>
       </b-row>
      </b-container>

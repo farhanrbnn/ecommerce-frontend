@@ -13,7 +13,8 @@
               <b-form-input autocomplete="off" required id="input-1" placeholder="Enter Your Username" v-model="userName"></b-form-input>
             </b-form-group>
             <b-form-group id="input-group-2" label="Password" label-for="input-2">
-               <b-form-input type="password" required autocomplete="off" id="input-2" placeholder="Enter Your Password" v-model="password"></b-form-input>
+               <b-form-input :type="type" required autocomplete="off" id="input-2" placeholder="Enter Your Password" v-model="password"></b-form-input>
+               <font-awesome-icon class="eye-icon" @click="toggleIcon" :icon="icon" />
             </b-form-group>
            <p>doesnt have an account ? register <span><router-link to="/register">here</router-link></span></p>
            <b-button class="mt-3" variant="primary" @click="postData">Submit</b-button>
@@ -37,11 +38,22 @@ export default {
   },
   data () {
     return {
+      type:'password',
+      icon: 'eye',
       userName: '',
       password: ''
     }
   },
   methods: {
+    toggleIcon() {
+      if(this.type === 'password') {
+        this.type = 'text'
+        this.icon = 'eye-slash'
+      } else {
+        this.type = 'password'
+        this.icon = 'eye'
+      }
+    },
     postData () {
       let data = {
         userName: this.userName,
@@ -93,6 +105,15 @@ export default {
   font-size: 20px;
   margin-bottom: 0;
   color: white;
+}
+
+.eye-icon {
+   float: right;
+  margin-top: -30px;
+  margin-right: 10px;
+  position: relative;
+  z-index: 1;
+  cursor:pointer;
 }
 
 </style>
